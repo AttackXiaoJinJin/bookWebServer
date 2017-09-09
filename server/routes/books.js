@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var positionDao=require("./../dao/position_dao").positionDao;
+var booksDao=require("../dao/books_dao").booksDao;
 
 
 router.get('/', function(req, res, next) {
-    positionDao.getAllPositions(function (result) {
+    booksDao.getAllBooks(function (result) {
         if(result.length==0){
             res.json(null);
         }else{

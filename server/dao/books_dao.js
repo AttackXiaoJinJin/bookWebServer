@@ -1,14 +1,14 @@
 
 var pool=require("./db_pool").pool;
-var positionSql=require("../dao/position_sql").sql;
+var booksSql=require("./books_sql").sql;
 
-exports.positionDao={
-    getAllPositions:function (callback) {
+exports.booksDao={
+    getAllBooks:function (callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 return
             }
-            client.query(positionSql.getAllPositions,function (error,result) {
+            client.query(booksSql.getAllBooks,function (error,result) {
                 if(error){
                     callback('e004');
                     return;
