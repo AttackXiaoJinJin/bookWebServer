@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="../../server/node_modules/bootstrap/dist/css/bootstrap.css">
+
+
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h3 class="col-md-12 col-lg-12 col-lg-offset-5" style="margin-bottom: 50px;">登录页面</h3>
+        <div class="col-md-6 col-lg-6 col-lg-offset-3"  >
+            <form class="form-horizontal" id="loginForm">
+                <div class="form-group">
+                    <label for="login_phone" class="col-sm-2 control-label">手机号:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="login_phone" name="loginPhone" placeholder="请输入你的手机号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login_err_phone" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10 text-danger" id="login_err_phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login_passwd" class="col-sm-2 control-label">密码:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="login_passwd" name="loginPasswd" placeholder="请输入密码(至少六位)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login_err_passwd" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10 text-danger" id="login_err_passwd" >aaa
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox col-lg-6">
+                            <label>
+                                <input type="checkbox">记住我
+                            </label>
+                        </div>
+                        <div class="col-lg-6 checkbox">
+                            没有账号?<a href="regist.html">注册</a>
+                        </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-default" id="btn_login">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../server/node_modules/jquery/dist/jquery.js"></script>
+<script src="../js/login.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传图片</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #upload_file{
+            width: 150px;
+            height: 150px;
+            display: block;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+        }
+        #preview{
+            width: 150px;
+            height: 150px;
+            background-color: red;
+            position: relative;
+            top: -150px;
+            /*overflow: hidden;*/
+        }
+        #preview img{
+            width: 100%;
+            height: 100%;
+            object-fit:fill;
+            /*显示全景*/
+            /*object-fit:contain;*/
+        }
+
+    </style>
+
+
+</head>
+<body>
+<form id="upload_form" enctype="multipart/form-data">
+<input type="text" id="from_phone" name="fromPhone">
+<input type="file" id="upload_file"  name="uploadFile">
+    <!--<img src="http://localhost:3001/upload/15040721517760.8206245208577392.png" alt="">-->
+<div id="preview"></div>
+ <button type="button" class="btn btn-default" id="btn_upload">上传</button>
+</form>
+<script src="../../server/node_modules/jquery/dist/jquery.js"></script>
+<script>
+    $(function () {
+        checkLogin();
+        var fileObj=document.querySelector("#upload_file");
+        //让change事件来触发上传
+        $("#upload_file").change(function (e) {
+            //选中多个图片的第一张图片
+            //multiple允许获取多个文件
+//            var file=e.target.files[0];
+            var file=fileObj.files[0];
+            preview(file);
+           upload();
+        });
+        //预览图片
+        function preview(file) {
+            var img=new Image();
+            img.src=window.URL.createObjectURL(file);
+            var $img=$(img);
+            img.onload=function () {
+                $("#preview").empty().append($img);
+                //释放所占用的内容
+                window.URL.revokeObjectURL(img.src);
+            };
+            console.log(img.src);
+        }
+        function upload() {
+            //将从login页面的userPhone数据传给该页面的from_phone
+             $("#from_phone").val(sessionStorage.getItem("userPhone"));
+             //由于from_phoen在form表单中，所以里面的数据会随着formdata上传
+            var formdata = new FormData($("#upload_form")[0]);
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:3001/users/upload',
+                data: formdata,
+                //async,cache若设为false则会卡死浏览器
+                //同步上传
+               // async: false,
+                //cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    //console.log(result.statusCode+"this is uploading");
+                    if(result.statusCode==1){
+                        console.log("success")
+                    }else {
+                        console.log("error");
+                    }
+                },
+                error: function (err) {
+                        console.log(JSON.stringify(err)+"++  error");
+                }
+            });
+        }
+
+        function checkLogin(){
+            //console.log("checklogin");
+            console.log(sessionStorage.getItem("userPhone")+"这是手机号");
+            if(sessionStorage.getItem("userPhone")){
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:3001/users/getUserHead',
+                    data: {"phone":sessionStorage.getItem("userPhone")},
+                    dataType:"json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (result) {
+                        console.log("这里显示图片");
+                       // location.href="http:localhost:3001/upload/"+result.user_head;
+                        $("#preview").append(`<img src="http://localhost:3001/upload/${result.user_head}"/>`);
+                        console.log(`http:localhost:3001/upload/${result.user_head}`)
+                    },
+                    error: function (err) {
+                        console.log("error");
+                    }
+
+                });
+            }else{
+                location.href="./login.html";
+            }
+        }
+
+    })//==============window.onload
+
+
+
+</script>
+</body>
+</html>
