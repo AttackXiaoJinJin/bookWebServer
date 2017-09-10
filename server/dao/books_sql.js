@@ -1,5 +1,5 @@
 exports.sql={
-    getAllBooks:"select * from booktable"
+    getAllBooks:"select book_name,book_year from booktable"
 
 
 };

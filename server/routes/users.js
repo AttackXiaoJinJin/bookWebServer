@@ -16,11 +16,11 @@ var fs=require("fs");
 router.post('/login',function(request, response, next) {
     var user=request.body;
     if(user){
-        console.log(user.loginPhone+"this is user");
+        // console.log(user.loginPhone+"this is user");
         //这里的loginPhone是html中的name值
         //回调的result是数据库中查询的值，属性也是数据库中定义的属性
         user_dao.getPasswdByPhone(user.loginPhone,function (result) {
-            console.log(result[0]+" this is passwd");
+            // console.log(result[0]+" this is passwd");
             //如果result传来的e004则直接告诉用户，否则去解析result
             if(result=="e004"){
                 response.json({"statusCode":result});
@@ -43,9 +43,10 @@ router.post('/login',function(request, response, next) {
             }
         })
     }else{
-        console.log("user的json数据为空");
+        console.log("user的json数据为空,不存在该用户");
     }
 });
+//==========================用户登录
 
 router.post('/upload', function(request, response, next) {
     // console.log("aaaaaaaaaa");
@@ -88,7 +89,6 @@ router.post('/upload', function(request, response, next) {
             console.log("newpath----"+newPath);
             //  重命名      用户上传的文件路径,服务器自己创建的路径
             // fs.renameSync(files.uploadFile.path,newPath);
-
             fs.rename(files.uploadFile.path,newPath,function (error) {
                 if(error){
                     response.json({"stateCode":'e005'});
@@ -130,22 +130,44 @@ router.post('/getUserHead', function(request, response, next) {
 });
 //==============================加载用户头像
 
+router.post('/addUser', function(request, response, next) {
+   //从html获取注册的手机号
+    var user=request.body;
+    //如果从html传来的数据存在
+    if(user){
+   user_dao.getPasswdByPhone(user.registPhone,function (result) {
+       //e004说明数据库异常
+       if(result=='e004'){
+            response.json({'statusCode':result});
+       }else{
+           //说明该用户数据库中没有
+           if(result.length==0){
+               //添加用户
+               user_dao.addUser(user.registPhone,user.registName,user.registPasswd,function (result) {
 
-/*
-router.post('/addUser', function(req, res, next) {
-
-});
-router.post('/getUserIcon', function(req, res, next) {
-    var loginPhone=req.body.loginPhone;
-    user_dao.getUserIcon(loginPhone,function (result) {
-       if(result.length==0){
-           res.json({"icon":"icon_default.jpg"});
-       } else {
-           res.json({"icon":result[0].icon});
+                   //如果添加用户成功,result返回1
+                   if(result){
+                       response.json({"statusCode":6});
+                   }else{
+                       //注册失败
+                       response.json({"statusCode":7});
+                   }
+               });
+              // response.json({"statusCode":3});
+           }else{
+               // 说明该用户数据库已存在
+               response.json({"statusCode":5})
+           }
        }
-
-    });
-    console.log(loginPhone);
+   })
+    }else{
+        console.log("注册数据为空");
+    }
 });
-*/
+//=================================注册用户
+
+
+
+//=====================用户发表文章
+
 module.exports = router;

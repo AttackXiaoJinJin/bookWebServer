@@ -21,30 +21,45 @@ exports.userDao={
         });
     },
     //=========================getPasswdById,login
-    regist:function (userPhone,userPasswd,callback) {
+    //获取用户电话，昵称，密码
+    addUser:function (userPhone,userName,userPasswd,callback) {
         //userDao对象
         // this.getPasswdByPhone(userSql.getPasswdByPhone,[userPhone],function (result) {
-        client.query(userSql.getPasswdByPhone,[userPhone],function (err,resultC) {
-            //console.log(resultC.length);
-           if(resultC.length==0){
-               client.query(userSql.addUser,[userPhone,userPhone,userPasswd],function (err,result) {
-                   // console.log(sql);
-                   if(err){
-                       console.log(err.message);
-                       return;
-                   }
-                   callback(result.affectedRows);
-
-               });
-           } else{
-               callback("5");
+        //调用sql查询语句
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
             }
+            client.query(userSql.getPasswdByPhone,[userPhone],function (err,resultC) {
+                if(err){
+                    console.log(err.message+" from getPasswdByPhone");
+                    callback("e004");
+                    return;
+                }
+                //console.log(resultC.length);
+                //如果数据库的结果为0,则注册
+                if (resultC.length == 0) {
+                    client.query(userSql.addUser, [userPhone, userName, "boy.jpg", userPasswd], function (err, result) {
+                        // console.log(sql);
+                        if (err) {
+                            console.log(err.message);
+                            return;
+                        }
+                        callback(result.affectedRows);
 
-            client.end();
+                    });
+                } else {
+                    //有结果，则用户已存在
+                    callback("5");
+                }
+                client.release();
+            });
+
+
         });
 
     },
-    //==============regist
+    //==========================addUser,添加用户
     /*
     createToken:function (token,callback) {
         pool.getConnection(function (error,client) {
