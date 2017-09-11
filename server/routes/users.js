@@ -6,12 +6,8 @@ var formidable=require("formidable");
 var AVATARUPLOAD_FOLDER="/upload/";
 var fs=require("fs");
 
-// router.get('/login', function(request, response, next) {
-//     var user=request.query;
-//     console.log("aaa");
-//     console.log(user+"get==");
-//     response.json({"statusCode":3});
-// });
+//设置一个常量来获取一个用户Id
+var YourUserId;
 
 router.post('/login',function(request, response, next) {
     var user=request.body;
@@ -25,6 +21,7 @@ router.post('/login',function(request, response, next) {
             if(result=="e004"){
                 response.json({"statusCode":result});
             }else {
+                /*
                 if(result.length==0){
                     //产生令牌
                     user_dao.createToken(util.createUnique(),function (result) {
@@ -32,16 +29,20 @@ router.post('/login',function(request, response, next) {
                             response.json({"statusCode":3,"user_token":util.createUnique()});
                         }
                     });
-                }else {
+                }else {*/
                     if(result[0].user_passwd==user.loginPasswd){
+                        //MD5加密
                         // if(result[0].user_passwd==util.MD5(user.loginPasswd)){
+                        // response.json({"statusCode":1,"user_id":result[0].user_id});
                         response.json({"statusCode":1});
+
                     }else {
                         response.json({"statusCode":2});
                     }
-                }
+               // }
             }
-        })
+        });
+        //============上面是根据手机号获取密码和用户的id
     }else{
         console.log("user的json数据为空,不存在该用户");
     }
@@ -144,10 +145,14 @@ router.post('/addUser', function(request, response, next) {
            if(result.length==0){
                //添加用户
                user_dao.addUser(user.registPhone,user.registName,user.registPasswd,function (result) {
-
-                   //如果添加用户成功,result返回1
                    if(result){
-                       response.json({"statusCode":6});
+                       // user_dao.getPasswdByPhone(user.registPhone,function (resultC) {
+                           // response.json({"statusCode":6},{"user_id":resultC[0].user_id});
+                           response.json({"statusCode":6});
+                           //获取用户ID
+                           // console.log(resultC[0].user_id+"users.js");
+                       // })
+
                    }else{
                        //注册失败
                        response.json({"statusCode":7});
@@ -166,7 +171,27 @@ router.post('/addUser', function(request, response, next) {
 });
 //=================================注册用户
 
-
+router.post('/publisharticle', function(request, response, next) {
+    //从html中获取用户id
+    var article=request.body;
+    //如果用户存在
+    if(article){
+        //上传文章
+        //添加用户
+        user_dao.publishArticle(article.user_id,article.article_time,article.topic_id,article.article_content,article.article_title,function (result) {
+            //如果添加文章成功,result返回8
+            if(result){
+             response.json({"statusCode":8});
+             }else{
+             //注册失败9
+             response.json({"statusCode":9});
+             }
+             });
+             // response.json({"statusCode":3});
+    }else{
+        console.log("注册数据为空");
+    }
+});
 
 //=====================用户发表文章
 

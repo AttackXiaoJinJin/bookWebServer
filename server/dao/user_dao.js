@@ -10,11 +10,10 @@ exports.userDao={
             }
             client.query(userSql.getPasswdByPhone,[userPhone],function (err,result) {
                 if(err){
-                    console.log(err.message+" from getPasswdByPhone");
+                    console.log(err.message+"出错在通过手机获取密码");
                     callback("e004");
                     return;
                 }
-                console.log(" userdao_result");
                 callback(result);
                 client.release();
             })
@@ -32,7 +31,7 @@ exports.userDao={
             }
             client.query(userSql.getPasswdByPhone,[userPhone],function (err,resultC) {
                 if(err){
-                    console.log(err.message+" from getPasswdByPhone");
+                    console.log(err.message+"出错在添加用户");
                     callback("e004");
                     return;
                 }
@@ -103,19 +102,19 @@ exports.userDao={
             }
             client.query(userSql.addUserHead,[phone,fileName],function (err,result1) {
                 if(err){
-                    console.log(err.message+" from addUserHead");
+                    console.log(err.message+"出错在添加用户头像");
                     callback("e004");
                     return;
                 }
                 //console.log("userhead的result: "+JSON.stringify(result1));
-                console.log((result1[0][0].result)+"thisi s user_dao");
+                // console.log((result1[0][0].result)+"thisi s user_dao");
                 var num_result=result1[0][0].result;
                 callback(+num_result);
                 client.release();
             })
         });
     },
-
+//===================添加用户头像
     getUserHead:function (phone,callback) {
         pool.getConnection(function (error,client) {
             if(error){
@@ -124,7 +123,7 @@ exports.userDao={
             }
             client.query(userSql.getUserHead,[phone],function (err,result1) {
                 if(err){
-                    console.log(err.message+" from getUserHead");
+                    console.log(err.message+"出错在获取用户头像");
                     callback("e004");
                     return;
                 }
@@ -133,12 +132,27 @@ exports.userDao={
                 client.release();
             })
         });
+    },
+//===========================获取用户头像
+
+    publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.publishArticle,[user_id,article_time,topic_id,article_content,article_title],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在发表文章");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
     }
-
-
-
-
-
+//=============================用户发表文章
 
 };
 
