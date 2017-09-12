@@ -34,7 +34,7 @@ router.post('/mostcombooks', function(request, response, next) {
 });
 //=======================上面是根据评论数获取推荐的书
 
-router.post('/getbookdetail', function(request, response, next) {
+router.post('/bookdetail', function(request, response, next) {
     var book=request.body;
     console.log(book);
     if(book){
@@ -47,6 +47,7 @@ router.post('/getbookdetail', function(request, response, next) {
             } else {
                 //获取成功
                 response.json({"statusCode":16});
+                console.log(JSON.stringify(result));
             }
         }
     });
@@ -58,7 +59,52 @@ router.post('/getbookdetail', function(request, response, next) {
 });
 //==============================上面是获取某一个书的详情
 
+router.post('/classbookbytag', function(request, response, next) {
+    var book=request.body;
+    // console.log(book);
+    if(book){
+        book_dao.classBookByTag(book.book_tag,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.length == 0) {
+                    //说明该标签下没有书
+                    response.json({"statusCode":20});
+                } else {
+                    //获取成功
+                    response.json({"statusCode":19});
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":21});
+        console.log("该book_tag不存在！")
+    }
+});
+//==========================通过标签分类书籍
+
+// router.post('/insertbook', function(request, response, next) {
+//
+//     book_dao.classBookByTag(book.book_tag, function (result) {
+//         if (result == "e004") {
+//             response.json({"statusCode": result});
+//         }
+//         else {
+//             if (result.length == 0) {
+//                 //说明该标签下没有书
+//                 response.json({"statusCode": 20});
+//             } else {
+//                 //获取成功
+//                 response.json({"statusCode": 19});
+//                 console.log(JSON.stringify(result));
+//             }
+//         }
+//     });
+// });
+//========================插入图书,需要先检查书名是否重复
 
 
-//==========================显示书籍
+
+
 module.exports = router;
