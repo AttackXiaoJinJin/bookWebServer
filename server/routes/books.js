@@ -102,11 +102,88 @@ router.post('/classbookbytag', function(request, response, next) {
 //         }
 //     });
 // });
-//========================插入图书,需要先检查书名是否重复
+//========================插入图书(admin),需要先检查书名是否重复
 
 
 
 //================================显示书的love数并递减排序
+
+router.post('/showlove', function(request, response, next) {
+    var book=request.body;
+    // console.log(book);
+    if(book){
+        book_dao.showlove(book.user_id,book.book_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.length == 0) {
+                    //说明没找到love_id
+                    response.json({"statusCode":39});
+                } else {
+                    //获取成功
+                    response.json({"statusCode":38});
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":40});
+        console.log("user_id,book_id不存在！")
+    }
+});
+//====================================显示用户是否喜欢该书
+
+router.post('/showlove/insertlove', function(request, response, next) {
+    var book=request.body;
+    // console.log(book);
+    if(book){
+        book_dao.insertlove(book.user_id,book.book_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.affectedrows==1) {
+                    //说明插入成功
+                    response.json({"statusCode":41});
+                } else {
+                    //插入失败
+                    response.json({"statusCode":42});
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":40});
+        console.log("user_id,book_id不存在！")
+    }
+});
+//====================================用户点击喜欢该书
+
+router.post('/showlove/deletelove', function(request, response, next) {
+    var book=request.body;
+    // console.log(book);
+    if(book){
+        book_dao.deletelove(book.love_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.affectedrows==1) {
+                    //说明删除成功
+                    response.json({"statusCode":43});
+                } else {
+                    //删除失败
+                    response.json({"statusCode":44});
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":40});
+        console.log("user_id,book_id不存在！")
+    }
+});
+//====================================用户点击不喜欢该书
+
+
 
 
 module.exports = router;

@@ -56,7 +56,7 @@ exports.booksDao={
             });
         });
     },
-    //获取书的详情
+    //=================================================获取书的详情
 
     classBookByTag:function (book_tag,callback) {
         pool.getConnection(function (err,client) {
@@ -74,7 +74,64 @@ exports.booksDao={
             });
         });
     },
-    //按照book_tag来分类书
+    //=========================================================按照book_tag来分类书
+
+    showlove:function (user_id,book_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(booksSql.showlove,[user_id,book_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在显示love");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================显示love
+
+    insertlove:function (user_id,book_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(booksSql.insertlove,[user_id,book_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在插入love");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================喜欢书insert,可能需要再次确认
+
+    deletelove:function (love_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(booksSql.deletelove,[love_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在删除love");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================取消喜欢书delete,可能需要再次确认
+
+
+
 
 };
 
