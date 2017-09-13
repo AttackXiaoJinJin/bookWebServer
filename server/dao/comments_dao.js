@@ -74,8 +74,41 @@ exports.comsDao={
     },
     //==================================================显示某文章的评论
 
+    bookcomlike:function (bookcom_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            client.query(comsSql.bookcomlike,[bookcom_id],function (error,result) {
+                if(error){
+                    console.log(error.message+"出错在给书的评论点赞");
+                    callback('e004');
+                    return;
+                }
+                callback(result);
+                client.release();
+            })
+        })
+    },
+    //================给一本书的评论点赞(like_num+1)
 
-
+    articlecomlike:function (articlecom_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            client.query(comsSql.articlecomlike,[articlecom_id],function (error,result) {
+                if(error){
+                    console.log(error.message+"出错在给文章的评论点赞");
+                    callback('e004');
+                    return;
+                }
+                callback(result);
+                client.release();
+            })
+        })
+    },
+    //================给一篇文章的评论点赞(like_num+1)
 
 };
 

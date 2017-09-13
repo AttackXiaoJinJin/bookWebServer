@@ -57,7 +57,7 @@ router.post('/articlecoms',function(request, response, next) {
     }
 
     });
-//============上面是插入某文章的评论
+//===============================================================上面是插入某文章的评论
 
 router.post('/showbookcoms',function(request, response, next) {
     var data=request.body;
@@ -85,35 +85,85 @@ router.post('/showbookcoms',function(request, response, next) {
     });
 //============上面是显示书的评论
 
-router.post('/showbookcoms',function(request, response, next) {
+router.post('/showarticlecoms',function(request, response, next) {
     var data=request.body;
     if(data){
-        if(data.book_id){
-        com_dao.showBookComs(data.book_id,function (result) {
+        if(data.article_id){
+        com_dao.showArticleComs(data.article_id,function (result) {
             if(result=="e004"){
                 response.json({"statusCode":result});
             }else if(result){
                     console.log(JSON.stringify(result));
                     //成功
-                    response.json({"statusCode":28});
+                    response.json({"statusCode":30});
                 }else {
                 //失败
-                    response.json({"statusCode":29});
+                    response.json({"statusCode":31});
                 }
         });
     }else{
-            response.json({"statusCode":24});
+            response.json({"statusCode":27});
         }
     }else {
         console.log("无法获取页面信息！")
     }
 
     });
-//============上面是显示书的评论
+//============上面是显示文章的评论
 
+router.post('/bookcomlike',function(request, response, next) {
+    var data=request.body;
+    if(data){
+        if(data.bookcom_id){
+            com_dao.bookcomlike(data.bookcom_id,function (result) {
+                if(result=="e004"){
+                    response.json({"statusCode":result});
+                }else if(result){
+                    console.log(JSON.stringify(result));
+                    //成功
+                    response.json({"statusCode":32});
+                }else {
+                    //失败
+                    response.json({"statusCode":33});
+                }
+            });
+        }else{
+            response.json({"statusCode":34});
+        }
+    }else {
+        console.log("无法获取页面信息！")
+    }
 
+});
 
+//================给一本书的评论点赞(like_num+1)
 
+router.post('/articlecomlike',function(request, response, next) {
+    var data=request.body;
+    if(data){
+        if(data.articlecom_id){
+            com_dao.articlecomlike(data.articlecom_id,function (result) {
+                if(result=="e004"){
+                    response.json({"statusCode":result});
+                }else if(result){
+                    console.log(JSON.stringify(result));
+                    //成功
+                    response.json({"statusCode":35});
+                }else {
+                    //失败
+                    response.json({"statusCode":36});
+                }
+            });
+        }else{
+            response.json({"statusCode":37});
+        }
+    }else {
+        console.log("无法获取页面信息！")
+    }
+
+});
+
+//================给一篇文章的评论点赞(like_num+1)
 
 
 
