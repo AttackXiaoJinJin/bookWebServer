@@ -1,35 +1,16 @@
 
 var pool=require("./db_pool").pool;
-var topicSql=require("./topic_sql").sql;
+var articleSql=require("./article_sql").sql;
 
-exports.topicDao={
-    getAllBooks:function (book_id,book_name,book_subhead,book_price,book_content,writer_id,book_catalog,book_img,book_year,callback) {
-        pool.getConnection(function (error,client) {
-            if(error){
-                return
-            }
-            client.query(booksSql.getAllBooks,function (error,result) {
-                if(error){
-                    console.log(err.message+"出错在获取全部书籍");
-                    callback('e004');
-                    return;
-                }
-
-                callback(result);
-                client.release();
-            })
-        })
-    },
-    //获取所有图书,待定,通过分类获取
-
-    getMostComBooks:function (callback) {
+exports.articleDao={
+    getMostComArticle:function (callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.getMostComBooks,function (err,result) {
+            client.query(articleSql.getMostComArticle,function (err,result) {
                 if(err){
-                    console.log(err.message+"出错在获取推荐书籍");
+                    console.log(err.message+"出错在获取推荐文章");
                     callback("e004");
                     return;
                 }
@@ -38,16 +19,16 @@ exports.topicDao={
             });
         });
     },
-    //获取推荐书籍,按照评论数排序
+    //获取推荐文章,按照评论数排序
 
-    getBookDetail:function (book_id,callback) {
+    getArticleDetail:function (article_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.getBookDetail,[book_id],function (err,result) {
+            client.query(articleSql.getArticleDetail,[article_id],function (err,result) {
                 if(err){
-                    console.log(err.message+"出错在获取书籍详情");
+                    console.log(err.message+"出错在获取文章详情");
                     callback("e004");
                     return;
                 }
@@ -56,16 +37,16 @@ exports.topicDao={
             });
         });
     },
-    //=================================================获取书的详情
+    //=================================================获取文章的详情
 
-    classBookByTag:function (book_tag,callback) {
+    getMostComArticleByTopic:function (topic,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.classBookByTag,[book_tag],function (err,result) {
+            client.query(articleSql.getMostComArticleByTopic,[topic],function (err,result) {
                 if(err){
-                    console.log(err.message+"出错在通过标签分类书籍");
+                    console.log(err.message+"出错在通过话题分类文章");
                     callback("e004");
                     return;
                 }
@@ -74,14 +55,14 @@ exports.topicDao={
             });
         });
     },
-    //=========================================================按照book_tag来分类书
+    //=========================================================按照话题来分类文章
 
-    showlove:function (user_id,book_id,callback) {
+    showcollect:function (user_id,article_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.showlove,[user_id,book_id],function (err,result) {
+            client.query(articleSql.showcollect,[user_id,article_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在显示love");
                     callback("e004");
@@ -92,16 +73,16 @@ exports.topicDao={
             });
         });
     },
-    //========================================================显示love
+    //========================================================显示collect
 
-    insertlove:function (user_id,book_id,callback) {
+    insertcollect:function (user_id,collect_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.insertlove,[user_id,book_id],function (err,result) {
+            client.query(collectSql.insertcollect,[user_id,article_id],function (err,result) {
                 if(err){
-                    console.log(err.message+"出错在插入love");
+                    console.log(err.message+"出错在插入collect");
                     callback("e004");
                     return;
                 }
@@ -110,16 +91,16 @@ exports.topicDao={
             });
         });
     },
-    //========================================================喜欢书insert,可能需要再次确认
+    //========================================================喜欢文章insert,可能需要再次确认
 
-    deletelove:function (love_id,callback) {
+    deletecollect:function (collect_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.deletelove,[love_id],function (err,result) {
+            client.query(articleSql.deletecollect,[collect_id],function (err,result) {
                 if(err){
-                    console.log(err.message+"出错在删除love");
+                    console.log(err.message+"出错在删除collect");
                     callback("e004");
                     return;
                 }
@@ -128,7 +109,7 @@ exports.topicDao={
             });
         });
     },
-    //========================================================取消喜欢书delete,可能需要再次确认
+    //========================================================取消收藏文章delete,可能需要再次确认
 
 
 

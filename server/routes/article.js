@@ -8,63 +8,63 @@ var fs=require("fs");
 
 router.post('/mostcomarticles', function(request, response, next) {
 
-    book_dao.getMostComArticle(function (result) {
+    article_dao.getMostComArticle(function (result) {
         if (result == "e004") {
             response.json({"statusCode": result});
         } else {
-            if (result){response.json({"statusCode": 14});console.log(JSON.stringify(result))}
-            else {response.json({"statusCode": 15});}
+            if (result){response.json({"statusCode": 52});console.log(JSON.stringify(result))}
+            else {response.json({"statusCode": 53});}
         }
         });
 });
-//=======================上面是根据评论数获取推荐的书
+//=======================上面是根据评论数获取推荐的文章
 
-router.post('/bookdetail', function(request, response, next) {
-    var book=request.body;
-    console.log(book);
+router.post('/articledetail', function(request, response, next) {
+    var article=request.body;
+    console.log(article);
     if(book){
-    book_dao.getBookDetail(book.book_id,function (result) {
+    article_dao.getArticleDetail(article.article_id,function (result) {
         if (result == "e004") {response.json({"statusCode": result});}
         else  {
             if (result.length == 0) {
                 //说明获取详情页失败
-                response.json({"statusCode":17});
+                response.json({"statusCode":55});
             } else {
                 //获取成功
-                response.json({"statusCode":16});
+                response.json({"statusCode":54});
                 console.log(JSON.stringify(result));
             }
         }
     });
     }
     else {
-        response.json({"statusCode":18});
-        console.log("获取书详情的书id不存在！")
+        response.json({"statusCode":56});
+        console.log("获取文章详情的文章id不存在！")
     }
 });
-//==============================上面是获取某一个书的详情
+//==============================上面是获取某一个文章的详情
 
-router.post('/classbookbytag', function(request, response, next) {
-    var book=request.body;
+router.post('/classarticlebytopic', function(request, response, next) {
+    var article=request.body;
     // console.log(book);
-    if(book){
-        book_dao.classBookByTag(book.book_tag,function (result) {
+    if(article){
+        article_dao.getMostComArticleByTopic(article.article_tag,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result.length == 0) {
-                    //说明该标签下没有书
-                    response.json({"statusCode":20});
+                    //说明该标签下没有文章
+                    response.json({"statusCode":58});
                 } else {
                     //获取成功
-                    response.json({"statusCode":19});
+                    response.json({"statusCode":57});
                     console.log(JSON.stringify(result));
                 }
             }
         });
     }
     else {
-        response.json({"statusCode":21});
-        console.log("该book_tag不存在！")
+        response.json({"statusCode":59});
+        console.log("该article_topic不存在！")
     }
 });
 //==========================通过标签分类书籍
@@ -91,82 +91,82 @@ router.post('/classbookbytag', function(request, response, next) {
 
 
 
-//================================显示书的love数并递减排序
+//================================显示文章的collect数并递减排序
 
-router.post('/showlove', function(request, response, next) {
-    var book=request.body;
+router.post('/showcollect', function(request, response, next) {
+    var article=request.body;
     // console.log(book);
-    if(book){
-        book_dao.showlove(book.user_id,book.book_id,function (result) {
+    if(article){
+        article_dao.showcollect(article.user_id,article.article_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result.length == 0) {
-                    //说明没找到love_id
-                    response.json({"statusCode":39});
+                    //说明没找到collect_id
+                    response.json({"statusCode":46});
                 } else {
                     //获取成功
-                    response.json({"statusCode":38});
+                    response.json({"statusCode":45});
                     console.log(JSON.stringify(result));
                 }
             }
         });
     }
     else {
-        response.json({"statusCode":40});
-        console.log("user_id,book_id不存在！")
+        response.json({"statusCode":47});
+        console.log("user_id,article_id不存在！")
     }
 });
-//====================================显示用户是否喜欢该书
+//====================================显示用户是否收藏该文章
 
-router.post('/showlove/insertlove', function(request, response, next) {
-    var book=request.body;
+router.post('/showcollect/insertcollect', function(request, response, next) {
+    var article=request.body;
     // console.log(book);
-    if(book){
-        book_dao.insertlove(book.user_id,book.book_id,function (result) {
+    if(article){
+        article_dao.insertcollect(article.user_id,article.article_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result.affectedrows==1) {
                     //说明插入成功
-                    response.json({"statusCode":41});
+                    response.json({"statusCode":48});
                 } else {
                     //插入失败
-                    response.json({"statusCode":42});
+                    response.json({"statusCode":49});
                     console.log(JSON.stringify(result));
                 }
             }
         });
     }
     else {
-        response.json({"statusCode":40});
-        console.log("user_id,book_id不存在！")
+        response.json({"statusCode":47});
+        console.log("user_id,article_id不存在！")
     }
 });
-//====================================用户点击喜欢该书
+//====================================用户点击收藏文章
 
-router.post('/showlove/deletelove', function(request, response, next) {
-    var book=request.body;
+router.post('/showlove/deletecollect', function(request, response, next) {
+    var article=request.body;
     // console.log(book);
-    if(book){
-        book_dao.deletelove(book.love_id,function (result) {
+    if(article){
+        article_dao.deletecollect(article.collect_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result.affectedrows==1) {
                     //说明删除成功
-                    response.json({"statusCode":43});
+                    response.json({"statusCode":50});
                 } else {
                     //删除失败
-                    response.json({"statusCode":44});
+                    response.json({"statusCode":51});
                     console.log(JSON.stringify(result));
                 }
             }
         });
     }
     else {
-        response.json({"statusCode":40});
-        console.log("user_id,book_id不存在！")
+        response.json({"statusCode":47});
+        console.log("user_id,article_id不存在！")
     }
 });
-//====================================用户点击不喜欢该书
+//====================================用户点击不收藏该文章
 
 
 
