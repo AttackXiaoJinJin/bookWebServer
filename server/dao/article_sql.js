@@ -5,6 +5,7 @@ exports.sql={
     getMostComArticleByTopic:"call getMostComArticleByTopic(?,@result)",
     //获取一篇文章的详情
     getArticleDetail:"call getArticleDetail(?,@result)",
+    //getArticleDetail:"call testaaa(?,@article_id,@articleTitle,@article_img,@article_content,@article_time,@topic_id,@topic_name,@user_id,@user_name)",
     //用户插入文章(user)
     inserArticle:"insert into articletable(user_id,article_time,topic_id,article_content,article_title) values(?,now(),?,?,?)",
     //收藏文章(显示爱心)利用user_id,article_id遍历collect表,如果表中有collect_id，则表示该文章被该用户收藏,否则没有

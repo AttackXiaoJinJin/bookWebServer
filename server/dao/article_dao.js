@@ -26,12 +26,14 @@ exports.articleDao={
             if(err){
                 return;
             }
+            //client.query(articleSql.getArticleDetail,[article_id],function (err,result) {
             client.query(articleSql.getArticleDetail,[article_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在获取文章详情");
                     callback("e004");
                     return;
                 }
+                console.log(JSON.stringify(result));
                 callback(result);
                 client.release();
             });
@@ -39,12 +41,12 @@ exports.articleDao={
     },
     //=================================================获取文章的详情
 
-    getMostComArticleByTopic:function (topic,callback) {
+    getMostComArticleByTopic:function (topic_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(articleSql.getMostComArticleByTopic,[topic],function (err,result) {
+            client.query(articleSql.getMostComArticleByTopic,[topic_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在通过话题分类文章");
                     callback("e004");
@@ -55,7 +57,7 @@ exports.articleDao={
             });
         });
     },
-    //=========================================================按照话题来分类文章
+    //=========================================================按照话题来分类文章(评论数排序)
 
     showcollect:function (user_id,article_id,callback) {
         pool.getConnection(function (err,client) {
@@ -75,12 +77,12 @@ exports.articleDao={
     },
     //========================================================显示collect
 
-    insertcollect:function (user_id,collect_id,callback) {
+    insertcollect:function (user_id,article_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(collectSql.insertcollect,[user_id,article_id],function (err,result) {
+            client.query(articleSql.insertcollect,[user_id,article_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在插入collect");
                     callback("e004");

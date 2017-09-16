@@ -22,11 +22,11 @@ router.post('/mostcomarticles', function(request, response, next) {
 router.post('/articledetail', function(request, response, next) {
     var article=request.body;
     console.log(article);
-    if(book){
+    if(article){
     article_dao.getArticleDetail(article.article_id,function (result) {
         if (result == "e004") {response.json({"statusCode": result});}
         else  {
-            if (result.length == 0) {
+            if (result[0].length == 0) {
                 //说明获取详情页失败
                 response.json({"statusCode":55});
             } else {
@@ -48,10 +48,10 @@ router.post('/classarticlebytopic', function(request, response, next) {
     var article=request.body;
     // console.log(book);
     if(article){
-        article_dao.getMostComArticleByTopic(article.article_tag,function (result) {
+        article_dao.getMostComArticleByTopic(article.topic_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.length == 0) {
+                if (result[0].length == 0) {
                     //说明该标签下没有文章
                     response.json({"statusCode":58});
                 } else {
@@ -87,7 +87,7 @@ router.post('/classarticlebytopic', function(request, response, next) {
 //         }
 //     });
 // });
-//========================插入图书(admin),需要先检查书名是否重复
+//========================插入文章(admin),是否需要先检查文章名是否重复?
 
 
 
