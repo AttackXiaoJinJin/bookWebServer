@@ -19,7 +19,7 @@ exports.topicDao={
             })
         })
     },
-    //按关注获取全部话题
+    //================================================================按关注获取全部话题
 
     getAllTopicsByArticle:function (callback) {
         pool.getConnection(function (error,client) {
@@ -36,8 +36,67 @@ exports.topicDao={
                 client.release();
             })
         })
-    }
-    //按文章数获取全部话题
+    },
+    //====================================================================按文章数获取全部话题
+
+    showattent:function (user_id,topic_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.showattent,[user_id,topic_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在显示attent");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================显示attent
+
+    insertattent:function (user_id,topic_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.insertattent,[user_id,topic_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在插入attent");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================关注话题insert,可能需要再次确认
+
+    deleteattent:function (attent_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(booksSql.deleteattent,[attent_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在删除attent");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================取消关注话题delete,可能需要再次确认
+
+
+
+
+
 
 
 };
