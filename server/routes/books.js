@@ -14,6 +14,7 @@ router.post('/allbooks',function(request, response, next) {
                 response.json({"statusCode":result});
             }else if(result){
                     response.json({"statusCode":12});
+
                 }else {
                     response.json({"statusCode":13});
                 }
@@ -27,7 +28,11 @@ router.post('/mostcombooks', function(request, response, next) {
         if (result == "e004") {
             response.json({"statusCode": result});
         } else {
-            if (result){response.json({"statusCode": 14});console.log(JSON.stringify(result))}
+            if (result){
+                // response.json({"statusCode": 14});
+                response.json(result);
+                console.log(JSON.stringify(result))
+            }
             else {response.json({"statusCode": 15});}
         }
         });
@@ -46,7 +51,8 @@ router.post('/bookdetail', function(request, response, next) {
                 response.json({"statusCode":17});
             } else {
                 //获取成功
-                response.json({"statusCode":16});
+                // response.json({"statusCode":16});
+                response.json(result);
                 console.log(JSON.stringify(result));
             }
         }
@@ -71,7 +77,8 @@ router.post('/classbookbytag', function(request, response, next) {
                     response.json({"statusCode":20});
                 } else {
                     //获取成功
-                    response.json({"statusCode":19});
+                    // response.json({"statusCode":19});
+                    response.json(result);
                     console.log(JSON.stringify(result));
                 }
             }
@@ -120,7 +127,8 @@ router.post('/showlove', function(request, response, next) {
                     response.json({"statusCode":39});
                 } else {
                     //获取成功
-                    response.json({"statusCode":38});
+                    // response.json({"statusCode":38});
+                    response.json(result);
                     console.log(JSON.stringify(result));
                 }
             }

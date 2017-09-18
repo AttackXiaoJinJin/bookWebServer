@@ -22,7 +22,6 @@ router.post('/login',function(request, response, next) {
         //这里的loginPhone是html中的name值
         //回调的result是数据库中查询的值，属性也是数据库中定义的属性
         user_dao.getPasswdByPhone(user.loginPhone,function (result) {
-            // console.log(result[0]+" this is passwd");
             //如果result传来的e004则直接告诉用户，否则去解析result
             if(result=="e004"){
                 response.json({"statusCode":result});
@@ -37,16 +36,19 @@ router.post('/login',function(request, response, next) {
                         // }
                     // });
                 }else {
-                    // if(result[0].user_passwd==user.loginPasswd){
+                    if(result[0].user_passwd==user.loginPasswd){
                         //MD5加密
-                        if(result[0].user_passwd==util.MD5(user.loginPasswd)){
+                        // if(result[0].user_passwd==util.MD5(user.loginPasswd)){
                             //产生令牌
+                            /*
                             var expires=moment().add(7,'days').valueOf();
                             var token=jwt.encode({
                                 iss:user.loginPhone,
                                 exp:expires
                             },util.secret);
                             response.json({"statusCode":1,token:token});
+                            */
+                            response.json({"statusCode":1});
 
                     }else {
                         response.json({"statusCode":2});
@@ -109,7 +111,7 @@ router.post('/upload', function(request, response, next) {
                 user_dao.addUserHead(fields.fromPhone,avatarName,function (result) {
                     console.log(result+" this is users");
                     if(result==1){
-                        response.json({"statusCode":1});
+                        response.json({"statusCode":-1});
                     }else{
                         response.json({"statusCode":0})
                     }
