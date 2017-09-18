@@ -35,11 +35,12 @@ app.all("*",function (request,response,next) {
     //写上跨域
     response.header("Access-Control-Allow-Origin","*");
     response.header("Access-Control-Allow-Methods","PUT,GET,POST,DELETE,OPTIONS");
-    response.header("Access-Control-Allow-Headers","Content-Type,Content-Length,Authorization,Accept,X-Requested-With,yourHeaderField");
+    response.header("Access-Control-Allow-Headers","Content-Type,Content-Length,Authorization,Accept,X-Requested-With,yourHeaderField,token");
     // console.log("this is use");
     //浏览器为安全起见会提交两次
     if(request.method=="OPTIONS"){
         // console.log("this is options");
+        //让options请求快速返回
         response.sendStatus(200);
     }else{
         //往下寻找接口

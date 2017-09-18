@@ -170,3 +170,5 @@ exports.formatLongString=function (str,len) {
 
 exports.MD5=MD5;
 // exports.add=add;
+
+exports.secret='juanjuan';

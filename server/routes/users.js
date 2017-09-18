@@ -6,6 +6,12 @@ var formidable=require("formidable");
 var AVATARUPLOAD_FOLDER="/upload/";
 var fs=require("fs");
 
+//产生令牌
+var jwt=require('jwt-simple');
+var moment = require('moment');
+//checkToken
+var ct=require("../utils/checkToken");
+
 //设置一个常量来获取一个用户Id
 var YourUserId;
 
@@ -21,30 +27,34 @@ router.post('/login',function(request, response, next) {
             if(result=="e004"){
                 response.json({"statusCode":result});
             }else {
-                /*
+
                 if(result.length==0){
                     //产生令牌
-                    user_dao.createToken(util.createUnique(),function (result) {
-                        if(result.affectedRows==1){
-                            response.json({"statusCode":3,"user_token":util.createUnique()});
-                        }
-                    });
-                }else {*/
-                    if(result[0].user_passwd==user.loginPasswd){
+                    // user_dao.createToken(util.createUnique(),function (result) {
+                    //     if(result.affectedRows==1){
+                    //         response.json({"statusCode":3,"user_token":util.createUnique()});
+                            response.json({"statusCode":3});
+                        // }
+                    // });
+                }else {
+                    // if(result[0].user_passwd==user.loginPasswd){
                         //MD5加密
-                        // if(result[0].user_passwd==util.MD5(user.loginPasswd)){
-                        // response.json({"statusCode":1,"user_id":result[0].user_id});
-                        response.json({"statusCode":1});
+                        if(result[0].user_passwd==util.MD5(user.loginPasswd)){
+                            //产生令牌
+                            var expires=moment().add(7,'days').valueOf();
+                            var token=jwt.encode({
+                                iss:user.loginPhone,
+                                exp:expires
+                            },util.secret);
+                            response.json({"statusCode":1,token:token});
 
                     }else {
                         response.json({"statusCode":2});
                     }
-               // }
+               }
             }
         });
         //============上面是根据手机号获取密码和用户的id
-    }else{
-        console.log("user的json数据为空,不存在该用户");
     }
 });
 //==========================用户登录
@@ -103,10 +113,6 @@ router.post('/upload', function(request, response, next) {
                     }else{
                         response.json({"statusCode":0})
                     }
-                    /*
-                    if(err){
-                        console.log(err);
-                    }*/
                 });
             });
         }
@@ -144,7 +150,9 @@ router.post('/addUser', function(request, response, next) {
            //说明该用户数据库中没有
            if(result.length==0){
                //添加用户
-               user_dao.addUser(user.registPhone,user.registName,user.registPasswd,function (result) {
+               // user_dao.addUser(user.registPhone,user.registName,user.registPasswd,function (result) {
+               //MD5加密密码
+               user_dao.addUser(user.registPhone,user.registName,util.MD5(user.registPasswd),function (result) {
                    if(result){
                        // user_dao.getPasswdByPhone(user.registPhone,function (resultC) {
                            // response.json({"statusCode":6},{"user_id":resultC[0].user_id});
@@ -196,5 +204,31 @@ router.post('/publisharticle', function(request, response, next) {
 //=====================用户发表文章
 
 
-//==========================显示书籍
+//========================获取所有用户
+/*
+router.get('/getAllUsers',ct.checkToken,function (req,res,next) {
+   //鉴权
+    var token=req.body.token post请求
+    console.log(req.query);
+    console.log();
+    //get请求
+    var token=req.query.token || req.header('token');
+
+try {
+    var tt=jwt.decode(token,util.secret);
+    //如果成功执行next()
+    next();
+}catch (e){
+    console.log(e.message);
+    res.json({"statusCode":2})
+ }
+
+
+},function (req,res,next) {
+    res.json({"statusCode":"ok"})
+
+});
+*/
 module.exports = router;
+
+
