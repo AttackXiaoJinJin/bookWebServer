@@ -13,7 +13,8 @@ router.post('/allbooks',function(request, response, next) {
             if(result=="e004"){
                 response.json({"statusCode":result});
             }else if(result){
-                    response.json({"statusCode":12});
+                    // response.json({"statusCode":12});
+                    response.json(result);
 
                 }else {
                     response.json({"statusCode":13});

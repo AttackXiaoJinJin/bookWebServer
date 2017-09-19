@@ -31,7 +31,8 @@ router.post('/articledetail', function(request, response, next) {
                 response.json({"statusCode":55});
             } else {
                 //获取成功
-                response.json({"statusCode":54});
+                // response.json({"statusCode":54});
+                response.json(result);
                 console.log(JSON.stringify(result));
             }
         }
@@ -67,27 +68,26 @@ router.post('/classarticlebytopic', function(request, response, next) {
         console.log("该article_topic不存在！")
     }
 });
-//==========================通过标签分类书籍
+//==========================通过话题分类文章
 
-// router.post('/insertbook', function(request, response, next) {
-//
-//     book_dao.classBookByTag(book.book_tag, function (result) {
-//         if (result == "e004") {
-//             response.json({"statusCode": result});
-//         }
-//         else {
-//             if (result.length == 0) {
-//                 //说明该标签下没有书
-//                 response.json({"statusCode": 20});
-//             } else {
-//                 //获取成功
-//                 response.json({"statusCode": 19});
-//                 console.log(JSON.stringify(result));
-//             }
-//         }
-//     });
-// });
-//========================插入文章(admin),是否需要先检查文章名是否重复?
+router.post('/insertbook', function(request, response, next) {
+    article_dao.insertArticle(article.user_id,article.topic_id,article.article_content,article.article_title, function (result) {
+        if (result == "e004") {
+            response.json({"statusCode": result});
+        }
+        else {
+            if (result.affectedrows==1) {
+                //说明发表文章成功
+                response.json({"statusCode": 8});
+            } else {
+                //发表失败
+                response.json({"statusCode": 9});
+                console.log(JSON.stringify(result));
+            }
+        }
+    });
+});
+//========================插入文章(用户),是否需要先检查文章名是否重复?
 
 
 
