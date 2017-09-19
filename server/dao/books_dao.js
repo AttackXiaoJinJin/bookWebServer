@@ -3,7 +3,7 @@ var pool=require("./db_pool").pool;
 var booksSql=require("./books_sql").sql;
 
 exports.booksDao={
-    getAllBooks:function (book_id,book_name,book_subhead,book_price,book_content,writer_id,book_catalog,book_img,book_year,callback) {
+    getAllBooks:function (callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 return
