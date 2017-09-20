@@ -12,7 +12,10 @@ router.post('/mostcomarticles', function(request, response, next) {
         if (result == "e004") {
             response.json({"statusCode": result});
         } else {
-            if (result){response.json({"statusCode": 52});console.log(JSON.stringify(result))}
+            if (result){
+                // response.json({"statusCode": 52});
+                response.json(result);
+            console.log(JSON.stringify(result))}
             else {response.json({"statusCode": 53});}
         }
         });
@@ -47,7 +50,6 @@ router.post('/articledetail', function(request, response, next) {
 
 router.post('/classarticlebytopic', function(request, response, next) {
     var article=request.body;
-    // console.log(book);
     if(article){
         article_dao.getMostComArticleByTopic(article.topic_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
@@ -57,7 +59,8 @@ router.post('/classarticlebytopic', function(request, response, next) {
                     response.json({"statusCode":58});
                 } else {
                     //获取成功
-                    response.json({"statusCode":57});
+                    // response.json({"statusCode":57});
+                    response.json(result);
                     console.log(JSON.stringify(result));
                 }
             }
@@ -70,22 +73,27 @@ router.post('/classarticlebytopic', function(request, response, next) {
 });
 //==========================通过话题分类文章
 
-router.post('/insertbook', function(request, response, next) {
-    article_dao.insertArticle(article.user_id,article.topic_id,article.article_content,article.article_title, function (result) {
-        if (result == "e004") {
-            response.json({"statusCode": result});
-        }
-        else {
-            if (result.affectedrows==1) {
-                //说明发表文章成功
-                response.json({"statusCode": 8});
-            } else {
-                //发表失败
-                response.json({"statusCode": 9});
-                console.log(JSON.stringify(result));
+router.post('/insertarticle', function(request, response, next) {
+    var article=request.body;
+    console.log(article);
+    if(article) {
+        article_dao.insertArticle(article.user_id, article.topic_id, article.article_content, article.article_title, function (result) {
+        // article_dao.insertArticle(user_id, topic_id, article_content, article_title, function (result) {
+            if (result == "e004") {
+                response.json({"statusCode": result});
             }
-        }
-    });
+            else {
+                if (result.affectedrows == 1) {
+                    //说明发表文章成功
+                    response.json({"statusCode": 8});
+                } else {
+                    //发表失败
+                    response.json({"statusCode": 9});
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
 });
 //========================插入文章(用户),是否需要先检查文章名是否重复?
 

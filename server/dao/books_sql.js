@@ -1,6 +1,6 @@
 exports.sql={
     //获取所有图书全部信息
-    getAllBooks:"select book_id,book_name,book_subhead,book_price,book_content,writer_id,book_catalog,book_img,book_year from booktable",
+    getAllBooks:"select book_id,book_name,book_subhead,book_price,book_content,book_tag,writer_id,book_catalog,book_img,book_year from booktable",
     //获取推荐书籍
     // getAlllove:""
     //获取推荐书籍(按评论数排序)

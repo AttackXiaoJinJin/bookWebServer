@@ -19,7 +19,7 @@ exports.articleDao={
             });
         });
     },
-    //获取推荐文章,按照评论数排序
+    //=================================获取推荐文章,按照评论数排序
 
     getArticleDetail:function (article_id,callback) {
         pool.getConnection(function (err,client) {

@@ -134,7 +134,7 @@ exports.userDao={
         });
     },
 //===========================获取用户头像
-
+/*
     publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
         pool.getConnection(function (error,client) {
             if(error){
@@ -153,7 +153,7 @@ exports.userDao={
         });
     }
 //=============================用户发表文章
-
+*/
 
 
 };
