@@ -39,6 +39,24 @@ exports.topicDao={
     },
     //====================================================================按文章数获取全部话题
 
+    getTopicById:function (topic_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.getTopicById,[topic_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在通过topic_id获取话题");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //=========================================================按照topic_id获取该话题
+
     getMostComArticleByTopic:function (topic_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){

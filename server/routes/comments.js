@@ -18,6 +18,7 @@ router.post('/bookcoms',function(request, response, next) {
                     // console.log(JSON.stringify(result));
                     //成功
                     response.json({"statusCode":22});
+                    // response.json(result);
                 }else {
                 //失败
                     response.json({"statusCode":23});
@@ -69,7 +70,8 @@ router.post('/showbookcoms',function(request, response, next) {
             }else if(result){
                     console.log(JSON.stringify(result));
                     //成功
-                    response.json({"statusCode":28});
+                    // response.json({"statusCode":28});
+                    response.json(result);
                 }else {
                 //失败
                     response.json({"statusCode":29});
@@ -95,7 +97,8 @@ router.post('/showarticlecoms',function(request, response, next) {
             }else if(result){
                     console.log(JSON.stringify(result));
                     //成功
-                    response.json({"statusCode":30});
+                    // response.json({"statusCode":30});
+                    response.json(result);
                 }else {
                 //失败
                     response.json({"statusCode":31});

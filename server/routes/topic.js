@@ -20,7 +20,7 @@ router.post('/topicbyattent',function(request, response, next) {
                 }
         })
     });
-//============上面是按关注数排话题
+//===========================================上面是按关注数排话题
 
 router.post('/topicbyarticle', function(request, response, next) {
 
@@ -36,7 +36,32 @@ router.post('/topicbyarticle', function(request, response, next) {
         }
         });
 });
-//=======================上面是按文章数排话题
+//================================================上面是按文章数排话题
+
+router.post('/gettopicbyid', function(request, response, next) {
+    var topic=request.body;
+    if(topic){
+        topic_dao.getTopicById(topic.topic_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    //说明没有话题
+                    response.json({"statusCode":76});
+                } else {
+                    //获取成功
+                    // response.json({"statusCode":75});
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":68});
+        console.log("该topic_id不存在！")
+    }
+});
+//=====================================================通过topic_id获取话题
 
 router.post('/topicarticle', function(request, response, next) {
     var topic=request.body;
@@ -61,7 +86,7 @@ router.post('/topicarticle', function(request, response, next) {
         console.log("该article_topic不存在！")
     }
 });
-//==========================通过话题分类文章
+//=====================================================通过话题分类文章
 
 
 

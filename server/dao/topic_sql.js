@@ -3,6 +3,8 @@ exports.sql={
     getAllTopicsByAttent:"call getAllTopicsByAttent",
     //查看话题全部信息,按文章数排序
     getAllTopicsByArticle:"call getAllTopicsByArticle",
+    //根据topic_id获取该话题信息
+    getTopicById:"call getTopicByTopicId(?,@result)",
     //在某一话题中获取推荐文章(按评论数排序),参数是topic_id
     getMostComArticleByTopic:"call getMostComArticleByTopic(?,@result)",
     //(显示关注)利用user_id,topic_id遍历attent表,如果表中有attent_id，则表示该话题被该用户关注,否则没有
