@@ -17,6 +17,8 @@ exports.sql={
     //新增话题(admin)
     //insertTopic:"",
 
+    //简单获取所有话题
+    getAllTopic:"select topic_id,topic_name from topictable",
 
 
 

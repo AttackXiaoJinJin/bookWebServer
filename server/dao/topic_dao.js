@@ -3,6 +3,24 @@ var pool=require("./db_pool").pool;
 var topicSql=require("./topic_sql").sql;
 
 exports.topicDao={
+    getAllTopics:function (callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            client.query(topicSql.getAllTopics,function (error,result) {
+                if(error){
+                    console.log(err.message+"出错在简单获取全部话题");
+                    callback('e004');
+                    return;
+                }
+                callback(result);
+                client.release();
+            })
+        })
+    },
+    //================================================================简单获取所有话题
+
     getAllTopicsByAttent:function (callback) {
         pool.getConnection(function (error,client) {
             if(error){
