@@ -48,30 +48,7 @@ router.post('/articledetail', function(request, response, next) {
 });
 //==============================上面是获取某一个文章的详情
 
-router.post('/classarticlebytopic', function(request, response, next) {
-    var article=request.body;
-    if(article){
-        article_dao.getMostComArticleByTopic(article.topic_id,function (result) {
-            if (result == "e004") {response.json({"statusCode": result});}
-            else  {
-                if (result[0].length == 0) {
-                    //说明该标签下没有文章
-                    response.json({"statusCode":58});
-                } else {
-                    //获取成功
-                    // response.json({"statusCode":57});
-                    response.json(result);
-                    console.log(JSON.stringify(result));
-                }
-            }
-        });
-    }
-    else {
-        response.json({"statusCode":59});
-        console.log("该article_topic不存在！")
-    }
-});
-//==========================通过话题分类文章
+
 
 router.post('/insertarticle', function(request, response, next) {
     var article=request.body;

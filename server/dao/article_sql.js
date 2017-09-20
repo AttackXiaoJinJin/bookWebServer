@@ -1,8 +1,7 @@
 exports.sql={
     //在全部文章中获取推荐文章(按评论数排序)
     getMostComArticle:"call getMostComArticle",
-    //在某一话题中获取推荐文章(按评论数排序),参数时topic_id
-    getMostComArticleByTopic:"call getMostComArticleByTopic(?,@result)",
+
     //获取一篇文章的详情
     getArticleDetail:"call getArticleDetail(?,@result)",
     //getArticleDetail:"call testaaa(?,@article_id,@articleTitle,@article_img,@article_content,@article_time,@topic_id,@topic_name,@user_id,@user_name)",

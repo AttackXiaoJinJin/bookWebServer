@@ -41,23 +41,7 @@ exports.articleDao={
     },
     //=================================================获取文章的详情
 
-    getMostComArticleByTopic:function (topic_id,callback) {
-        pool.getConnection(function (err,client) {
-            if(err){
-                return;
-            }
-            client.query(articleSql.getMostComArticleByTopic,[topic_id],function (err,result) {
-                if(err){
-                    console.log(err.message+"出错在通过话题分类文章");
-                    callback("e004");
-                    return;
-                }
-                callback(result);
-                client.release();
-            });
-        });
-    },
-    //=========================================================按照话题来分类文章(评论数排序)
+
 
     showcollect:function (user_id,article_id,callback) {
         pool.getConnection(function (err,client) {
