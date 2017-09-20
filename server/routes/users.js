@@ -48,7 +48,8 @@ router.post('/login',function(request, response, next) {
                             },util.secret);
                             response.json({"statusCode":1,token:token});
                             */
-                            response.json({"statusCode":1});
+                            // response.json({"statusCode":1});
+                            response.json(result);
 
                     }else {
                         response.json({"statusCode":2});
@@ -111,8 +112,10 @@ router.post('/upload', function(request, response, next) {
                 user_dao.addUserHead(fields.fromPhone,avatarName,function (result) {
                     console.log(result+" this is users");
                     if(result==1){
+                        //成功
                         response.json({"statusCode":-1});
                     }else{
+                        //失败
                         response.json({"statusCode":0})
                     }
                 });
@@ -180,30 +183,6 @@ router.post('/addUser', function(request, response, next) {
     }
 });
 //=================================注册用户
-
-router.post('/publisharticle', function(request, response, next) {
-    //从html中获取用户id
-    var article=request.body;
-    //如果用户存在
-    if(article){
-        //上传文章
-        //添加用户
-        user_dao.publishArticle(article.user_id,article.article_time,article.topic_id,article.article_content,article.article_title,function (result) {
-            //如果添加文章成功,result返回8
-            if(result){
-             response.json({"statusCode":8});
-             }else{
-             //注册失败9
-             response.json({"statusCode":9});
-             }
-             });
-             // response.json({"statusCode":3});
-    }else{
-        console.log("注册数据为空");
-    }
-});
-
-//=====================用户发表文章
 
 
 //========================获取所有用户

@@ -6,6 +6,20 @@ var formidable=require("formidable");
 var AVATARUPLOAD_FOLDER="/upload/";
 var fs=require("fs");
 
+router.post('/alltopics',function(request, response, next) {
+    topic_dao.getAllTopics(function (result) {
+        if(result=="e004"){
+            response.json({"statusCode":result});
+        }else if(result){
+            console.log(JSON.stringify(result));
+            // response.json({"statusCode":60});
+            response.json(result);
+        }else {
+            response.json({"statusCode":78});
+        }
+    })
+});
+//===========================================上面是简单获取所有话题
 
 router.post('/topicbyattent',function(request, response, next) {
         topic_dao.getAllTopicsByAttent(function (result) {
@@ -70,7 +84,7 @@ router.post('/topicarticle', function(request, response, next) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result[0].length == 0) {
-                    //说明该标签下没有文章
+                    //说明该标签下没有文章/失败
                     response.json({"statusCode":58});
                 } else {
                     //获取成功
@@ -86,8 +100,57 @@ router.post('/topicarticle', function(request, response, next) {
         console.log("该article_topic不存在！")
     }
 });
-//=====================================================通过话题分类文章
+//=====================================================通过话题分类获取最多评论文章
 
+router.post('/topcolart', function(request, response, next) {
+    var topic=request.body;
+    if(topic){
+        topic_dao.getMostCollectArticleByTopic(topic.topic_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length == 0) {
+                    //说明该标签下没有文章
+                    response.json({"statusCode":80});
+                } else {
+                    //获取成功
+                    // response.json({"statusCode":79});
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":59});
+        console.log("该article_topic不存在！")
+    }
+});
+//=====================================================通过话题分类获取最多收藏文章
+
+router.post('/topnewart', function(request, response, next) {
+    var topic=request.body;
+    if(topic){
+        topic_dao.getMostCollectArticleByTopic(topic.topic_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length == 0) {
+                    //说明该标签下没有文章
+                    response.json({"statusCode":80});
+                } else {
+                    //获取成功
+                    // response.json({"statusCode":79});
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":59});
+        console.log("该article_topic不存在！")
+    }
+});
+//=====================================================通过话题分类获取最新发布文章
 
 
 router.post('/showattent', function(request, response, next) {

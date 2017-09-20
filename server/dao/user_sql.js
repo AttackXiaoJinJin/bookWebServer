@@ -1,8 +1,8 @@
 exports.sql={
     //获取用户ID
     getUserIdByPhone:"select user_id from userTable where user_phone=?",
-    //登录,获取用户密码
-    getPasswdByPhone:"select user_passwd from userTable where user_phone=?",
+    //登录,获取用户密码和ID
+    getPasswdByPhone:"select user_passwd,user_id from userTable where user_phone=?",
     //注册,获取用户密码和id
     addUser:"insert into userTable(user_phone,user_name,user_head,user_passwd) values(?,?,?,?)",
     //创建令牌
@@ -11,8 +11,11 @@ exports.sql={
     getUserHead:"select user_head from userTable where user_phone=?",
     //添加用户头像
     addUserHead:"call addUserHead(?,?,@result)",
-    //用户发表文章
-    publishArticle:"insert into articletable(user_id,article_time,topic_id,article_content,article_title) values(?,?,?,?,?)"
-
+    //根据用户id获取头像、昵称、手机号
+    getBasicInfo:"select user_name,user_phone,user_head from usertable where user_id=?",
+    //根据用户id获取头像、昵称、手机号、个人简介、收货地址
+    getmoreBasicInfo:"select user_name,user_phone,user_head,user_introduction,user_address from usertable where user_id=?",
+    //根据用户id获取其关注话题
+    getUserTopic:"",
 
 };
