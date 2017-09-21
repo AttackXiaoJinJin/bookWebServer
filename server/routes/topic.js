@@ -253,4 +253,30 @@ router.post('/topicidbyname', function(request, response, next) {
 });
 //=====================================================通过name获取id
 
+router.post('/searchtopic', function(request, response, next) {
+    var topic=request.body;
+    if(topic){
+        topic_dao.searchTopic(topic.searchCon,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length == 0) {
+                    //说明搜索结果为空
+                    response.json({"statusCode":87});
+                } else {
+                    //获取成功
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":89});
+        console.log("未输入搜索内容")
+    }
+});
+//=====================================================搜索话题
+
+
+
 module.exports = router;

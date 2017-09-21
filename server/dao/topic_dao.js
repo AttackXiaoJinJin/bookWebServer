@@ -167,7 +167,23 @@ exports.topicDao={
     },
     //========================================================通过name获取id
 
-
+    searchTopic:function (searchCon,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.searchTopic,[searchCon],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在搜索话题");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================搜索话题
 
 
 

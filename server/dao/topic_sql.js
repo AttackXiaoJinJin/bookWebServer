@@ -24,8 +24,8 @@ exports.sql={
     //简单获取所有话题
     getAllTopics:"select topic_id,topic_name from topictable",
     //通过topic_name获取topic_id
-    getTopicIdByname:"select topic_id from topictable where topic_name=?"
+    getTopicIdByname:"select topic_id from topictable where topic_name=?",
 
-
+    searchTopic:"call searchTopic(?,@result)",
 
 };
