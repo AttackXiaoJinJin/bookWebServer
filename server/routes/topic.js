@@ -130,7 +130,7 @@ router.post('/topcolart', function(request, response, next) {
 router.post('/topnewart', function(request, response, next) {
     var topic=request.body;
     if(topic){
-        topic_dao.getMostCollectArticleByTopic(topic.topic_id,function (result) {
+        topic_dao.getNewestArticleByTopic(topic.topic_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result[0].length == 0) {

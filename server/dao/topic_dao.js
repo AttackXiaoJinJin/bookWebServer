@@ -75,6 +75,8 @@ exports.topicDao={
     },
     //=========================================================按照topic_id获取该话题
 
+
+
     getMostComArticleByTopic:function (topic_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
@@ -92,6 +94,43 @@ exports.topicDao={
         });
     },
     //=========================================================按照话题来分类文章(评论数排序)
+
+    getMostCollectArticleByTopic:function (topic_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.getMostCollectArticleByTopic,[topic_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在通过话题分类文章");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //=========================================================按照话题来分类文章(收藏数排序)
+
+
+    getNewestArticleByTopic:function (topic_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.getNewestArticleByTopic,[topic_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在通过话题分类文章");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //=========================================================按照话题来分类文章(最新发布排序)
 
 
     showattent:function (user_id,topic_id,callback) {
