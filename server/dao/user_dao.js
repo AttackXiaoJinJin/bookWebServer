@@ -193,6 +193,64 @@ exports.userDao={
     },
 //===========================通过id获取用户更多信息
 
+    getUserBook:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getUserBook,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================通过id获取用户喜欢的书
+
+    getUserTopic:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getUserTopic,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================通过id获取用户关注的话题
+
+    getUserArticle:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getUserArticle,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================通过id获取用户收藏的文章
+
+
 /*
     publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
         pool.getConnection(function (error,client) {

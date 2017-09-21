@@ -261,7 +261,77 @@ router.post('/getmorebyid', function(request, response, next) {
 
 //====================================通过手机号获取用户更多信息
 
+router.post('/userbook', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.getUserBook(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //success
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
 
+//====================================通过id获取用户喜欢书(喜欢时间排序)
+
+router.post('/usertopic', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.getUserTopic(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //success
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================通过id获取用户关注话题(关注时间排序)
+
+router.post('/userarticle', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.getUserArticle(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //success
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================通过id获取用户收藏文章(收藏时间排序)
 
 
 //========================获取所有用户
