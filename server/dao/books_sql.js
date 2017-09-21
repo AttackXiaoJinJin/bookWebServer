@@ -17,4 +17,7 @@ exports.sql={
     insertlove:"insert into lovetable(user_id,book_id,love_time) VALUES (?,?,now())",
     //如果love表中有,则用户点击'喜欢',从love表中删除(载入页面就已经执行showlove确认了,是否需要再次确认?)
     deletelove:"delete from lovetable where love_id=?",
+
+    searchBook:"call searchBook(?,@result)",
+
 };

@@ -130,7 +130,23 @@ exports.booksDao={
     },
     //========================================================取消喜欢书delete,可能需要再次确认
 
-
+    searchBook:function (searchCon,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(booksSql.searchBook,[searchCon],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错搜索书籍");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================搜索书籍
 
 
 };

@@ -192,7 +192,30 @@ router.post('/showlove/deletelove', function(request, response, next) {
 });
 //====================================用户点击不喜欢该书
 
-
+router.post('/searchbook', function(request, response, next) {
+    var book=request.body;
+    // console.log(book);
+    if(book){
+        book_dao.searchBook(book.searchCon,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    //说明搜索没有结果
+                    response.json({"statusCode":88});
+                } else {
+                    //删除失败
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":89});
+        console.log("未输入搜索内容")
+    }
+});
+//====================================搜索书籍
 
 
 module.exports = router;
