@@ -19,10 +19,8 @@ exports.sql={
     insertattent:"insert into attenttable(user_id,topic_id,attent_time) VALUES (?,?,now())",
     //如果attent表中有,则用户点击'喜欢',从love表中删除(载入页面就已经执行showlove确认了,是否需要再次确认?)
     deleteattent:"delete from attenttable where attent_id=?",
-
     //新增话题(admin)
     //insertTopic:"",
-
     //简单获取所有话题
     getAllTopics:"select topic_id,topic_name from topictable",
 

@@ -16,6 +16,11 @@ exports.sql={
     //根据用户id获取头像、昵称、手机号、个人简介、收货地址
     getmoreBasicInfo:"select user_name,user_phone,user_head,user_introduction,user_address from usertable where user_id=?",
     //根据用户id获取其关注话题
-    getUserTopic:"",
+    getUserTopic:"call getUserTopic(?,@result)",
+    //根据用户id获取其收藏文章
+    getUserArticle:"call getUserArticle(?,@result)",
+    //根据用户id获取其喜欢书籍
+    getUserBook:"call getUserBook(?,@result)",
+
 
 };

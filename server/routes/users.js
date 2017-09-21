@@ -185,6 +185,85 @@ router.post('/addUser', function(request, response, next) {
 //=================================注册用户
 
 
+router.post('/getIdByPhone', function(request, response, next) {
+    //从html获取注册的手机号
+    var user=request.body;
+    //如果从html传来的数据存在
+    if(user){
+        user_dao.getUserIdByPhone(user.registPhone,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //返回user_id
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================注册后通过手机号获取用户ID
+
+
+router.post('/getbasebyid', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.getBasicInfo(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //返回基础信息
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================通过手机号获取用户基本信息
+
+
+router.post('/getmorebyid', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.getmoreBasicInfo(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                //说明该用户ID数据库中没有
+                if(result.length==0){
+                    response.json({"statusCode":11})
+                }else{
+                    //返回基础信息
+                    response.json(result)
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================通过手机号获取用户更多信息
+
+
+
+
 //========================获取所有用户
 /*
 router.get('/getAllUsers',ct.checkToken,function (req,res,next) {

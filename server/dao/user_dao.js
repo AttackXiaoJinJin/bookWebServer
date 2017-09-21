@@ -134,6 +134,65 @@ exports.userDao={
         });
     },
 //===========================获取用户头像
+
+    getUserIdByPhone:function (phone,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getUserIdByPhone,[phone],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================获取用户头像
+
+    getBasicInfo:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getBasicInfo,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================通过id获取用户基础信息
+
+
+    getmoreBasicInfo:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.getmoreBasicInfo,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+//===========================通过id获取用户更多信息
+
 /*
     publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
         pool.getConnection(function (error,client) {
