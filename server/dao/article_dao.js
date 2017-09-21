@@ -117,6 +117,25 @@ exports.articleDao={
     //=================================================插入文章
 
 
+    searchArticle:function (searCon,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(articleSql.searchArticle,[searCon],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在搜索文章");
+                    callback("e004");
+                    return;
+                }
+                console.log(JSON.stringify(result));
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //=================================================搜索文章
+
 };
 
 

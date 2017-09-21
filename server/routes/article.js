@@ -153,7 +153,30 @@ router.post('/showlove/deletecollect', function(request, response, next) {
 });
 //====================================用户点击不收藏该文章
 
-
+router.post('/searcharticle', function(request, response, next) {
+    var search=request.body;
+    // console.log(book);
+    if(search){
+        article_dao.searchArticle(search.searchCon,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    //说明搜索结果为0
+                    response.json({"statusCode":86});
+                } else {
+                    //得出结果
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":89});
+        console.log("请输入搜索内容！")
+    }
+});
+//====================================搜索文章
 
 
 module.exports = router;

@@ -14,6 +14,7 @@ exports.sql={
     //如果collect表中有,则用户点击'收藏',从collect表中删除(载入页面就已经执行showcollect确认了,是否需要再次确认?)
     deletecollect:"delete from collecttable where collect_id=?",
 
+    searchArticle:"call searchArticle(?,@result)",
 
 
 };

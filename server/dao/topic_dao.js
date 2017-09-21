@@ -149,6 +149,23 @@ exports.topicDao={
     //========================================================取消关注话题delete,可能需要再次确认
 
 
+    getTopicIdByname:function (topic_name,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.getTopicIdByname,[topic_name],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在获取topicid_byname");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================通过name获取id
 
 
 

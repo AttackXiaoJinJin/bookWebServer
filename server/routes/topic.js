@@ -229,6 +229,28 @@ router.post('/showattent/deleteattent', function(request, response, next) {
 });
 //====================================用户点击不关注该话题
 
-
+router.post('/topicidbyname', function(request, response, next) {
+    var topic=request.body;
+    if(topic){
+        topic_dao.getTopicIdByname(topic.topic_name,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length == 0) {
+                    //说明没有该话题
+                    response.json({"statusCode":68});
+                } else {
+                    //获取成功
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":68});
+        console.log("该topic不存在！")
+    }
+});
+//=====================================================通过name获取id
 
 module.exports = router;

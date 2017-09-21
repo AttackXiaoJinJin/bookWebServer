@@ -270,8 +270,9 @@ router.post('/userbook', function(request, response, next) {
                 response.json({'statusCode':result});
             }else{
                 //说明该用户ID数据库中没有
-                if(result.length==0){
-                    response.json({"statusCode":11})
+                if(!result[0][0].love_id){
+                    console.log(result[0][0].love_id);
+                    response.json({"statusCode":83})
                 }else{
                     //success
                     response.json(result)
@@ -294,8 +295,9 @@ router.post('/usertopic', function(request, response, next) {
                 response.json({'statusCode':result});
             }else{
                 //说明该用户ID数据库中没有
-                if(result.length==0){
-                    response.json({"statusCode":11})
+                if(!result[0][0].attent_id){
+                    console.log(result[0][0].attent_id);
+                    response.json({"statusCode":84})
                 }else{
                     //success
                     response.json(result)
@@ -311,15 +313,19 @@ router.post('/usertopic', function(request, response, next) {
 
 router.post('/userarticle', function(request, response, next) {
     var user=request.body;
+    var rr;
     if(user){
         user_dao.getUserArticle(user.user_id,function (result) {
             //e004说明数据库异常
             if(result=='e004'){
                 response.json({'statusCode':result});
             }else{
+                rr=JSON.stringify(result);
+                console.log(rr);
                 //说明该用户ID数据库中没有
-                if(result.length==0){
-                    response.json({"statusCode":11})
+                if(!result[0][0].collect_id){
+                    console.log(result[0][0].collect_id);
+                    response.json({"statusCode":85})
                 }else{
                     //success
                     response.json(result)
