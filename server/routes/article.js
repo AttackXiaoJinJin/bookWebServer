@@ -60,7 +60,7 @@ router.post('/insertarticle', function(request, response, next) {
                 response.json({"statusCode": result});
             }
             else {
-                if (result.affectedrows == 1) {
+                if (result.affectedRows == 1) {
                     //说明发表文章成功
                     response.json({"statusCode": 8});
                 } else {
@@ -110,7 +110,7 @@ router.post('/showcollect/insertcollect', function(request, response, next) {
         article_dao.insertcollect(article.user_id,article.article_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+                if (result.affectedRows==1) {
                     //说明插入成功
                     response.json({"statusCode":48});
                 } else {
@@ -132,10 +132,10 @@ router.post('/showlove/deletecollect', function(request, response, next) {
     var article=request.body;
     // console.log(book);
     if(article){
-        article_dao.deletecollect(article.collect_id,function (result) {
+        article_dao.deletecollect(article.user_id,article_article_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+                if (result.affectedRows==1) {
                     //说明删除成功
                     response.json({"statusCode":50});
                 } else {

@@ -36,9 +36,9 @@ router.post('/login',function(request, response, next) {
                         // }
                     // });
                 }else {
-                    if(result[0].user_passwd==user.loginPasswd){
+                    // if(result[0].user_passwd==user.loginPasswd){
                         //MD5加密
-                        // if(result[0].user_passwd==util.MD5(user.loginPasswd)){
+                        if(result[0].user_passwd==util.MD5(user.loginPasswd)){
                             //产生令牌
                             /*
                             var expires=moment().add(7,'days').valueOf();

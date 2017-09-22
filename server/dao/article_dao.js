@@ -79,12 +79,12 @@ exports.articleDao={
     },
     //========================================================喜欢文章insert,可能需要再次确认
 
-    deletecollect:function (collect_id,callback) {
+    deletecollect:function (user_id,article_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(articleSql.deletecollect,[collect_id],function (err,result) {
+            client.query(articleSql.deletecollect,[user_id,article_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在删除collect");
                     callback("e004");

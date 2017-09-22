@@ -112,12 +112,12 @@ exports.booksDao={
     },
     //========================================================喜欢书insert,可能需要再次确认
 
-    deletelove:function (love_id,callback) {
+    deletelove:function (user_id,book_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.deletelove,[love_id],function (err,result) {
+            client.query(booksSql.deletelove,[user_id,book_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在删除love");
                     callback("e004");

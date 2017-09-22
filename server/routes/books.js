@@ -123,14 +123,17 @@ router.post('/showlove', function(request, response, next) {
         book_dao.showlove(book.user_id,book.book_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
+                console.log(result.length);
+                console.log(JSON.stringify(result));
+
                 if (result.length == 0) {
                     //说明没找到love_id
                     response.json({"statusCode":39});
                 } else {
                     //获取成功
-                    // response.json({"statusCode":38});
-                    response.json(result);
-                    console.log(JSON.stringify(result));
+                    response.json({"statusCode":38});
+                    // response.json(result);
+                    // console.log(JSON.stringify(result));
                 }
             }
         });
@@ -144,12 +147,14 @@ router.post('/showlove', function(request, response, next) {
 
 router.post('/showlove/insertlove', function(request, response, next) {
     var book=request.body;
+    var rr;
     // console.log(book);
     if(book){
         book_dao.insertlove(book.user_id,book.book_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+
+                if (result.affectedRows==1) {
                     //说明插入成功
                     response.json({"statusCode":41});
                 } else {
@@ -171,10 +176,10 @@ router.post('/showlove/deletelove', function(request, response, next) {
     var book=request.body;
     // console.log(book);
     if(book){
-        book_dao.deletelove(book.love_id,function (result) {
+        book_dao.deletelove(book.user_id,book.book_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+                if (result.affectedRows==1) {
                     //说明删除成功
                     response.json({"statusCode":43});
                 } else {
@@ -215,7 +220,7 @@ router.post('/searchbook', function(request, response, next) {
         console.log("未输入搜索内容")
     }
 });
-//====================================搜索书籍
+//=================================================搜索书籍
 
 
 module.exports = router;

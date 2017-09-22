@@ -12,11 +12,11 @@ exports.sql={
     //插入图书(admin)
     inserBook:"insert into booktable(book_name,book_subhead,book_price,book_content,writer_id,book_tag,book_catalog,book_img,book_year) values(?,?,?,?,?,?,?,?,?)",
     //(显示爱心)利用user_id,book_id遍历love表,如果表中有love_id，则表示该书被该用户喜欢,否则没有
-    showlove:"select love_id from lovetable where book_id=? and user_id=?",
+    showlove:"select love_id from lovetable where user_id=? and book_id=?",
     //如果love表中没有,则用户点击'喜欢',向love表中插入(载入页面就已经执行showlove确认了,是否需要再次确认?)
     insertlove:"insert into lovetable(user_id,book_id,love_time) VALUES (?,?,now())",
     //如果love表中有,则用户点击'喜欢',从love表中删除(载入页面就已经执行showlove确认了,是否需要再次确认?)
-    deletelove:"delete from lovetable where love_id=?",
+    deletelove:"delete from lovetable where user_id=? and book_id=?",
 
     searchBook:"call searchBook(?,@result)",
 
