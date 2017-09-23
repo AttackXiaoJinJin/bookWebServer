@@ -56,6 +56,8 @@ exports.comsDao={
     },
     //==================================================显示某书的评论
 
+
+
     showArticleComs:function (article_id,callback) {
         pool.getConnection(function (error,client) {
             if(error){
@@ -73,6 +75,8 @@ exports.comsDao={
         })
     },
     //==================================================显示某文章的评论
+
+
 
     bookcomlike:function (bookcom_id,callback) {
         pool.getConnection(function (error,client) {
