@@ -12,6 +12,7 @@ var comments = require('./routes/comments');
 var topic= require('./routes/topic');
 var article= require('./routes/article');
 var beauty= require('./routes/beauty');
+var order= require('./routes/order');
 
 
 
@@ -55,6 +56,7 @@ app.use('/comments', comments);
 app.use('/topic', topic);
 app.use('/article', article);
 app.use('/beauty', beauty);
+app.use('/order', order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
