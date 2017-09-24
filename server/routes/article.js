@@ -49,7 +49,7 @@ router.post('/articledetail', function(request, response, next) {
 //==============================上面是获取某一个文章的详情
 
 
-
+//========================插入文章(用户),是否需要先检查文章名是否重复?
 router.post('/insertarticle', function(request, response, next) {
     var article=request.body;
     console.log(article);
@@ -72,12 +72,14 @@ router.post('/insertarticle', function(request, response, next) {
         });
     }
 });
-//========================插入文章(用户),是否需要先检查文章名是否重复?
+
 
 
 
 //================================显示文章的collect数并递减排序
 
+
+//====================================显示用户是否收藏该文章
 router.post('/showcollect', function(request, response, next) {
     var article=request.body;
     // console.log(book);
@@ -101,7 +103,7 @@ router.post('/showcollect', function(request, response, next) {
         console.log("user_id,article_id不存在！")
     }
 });
-//====================================显示用户是否收藏该文章
+
 
 router.post('/showcollect/insertcollect', function(request, response, next) {
     var article=request.body;
@@ -177,6 +179,25 @@ router.post('/searcharticle', function(request, response, next) {
     }
 });
 //====================================搜索文章
+
+router.post('/showcollnum', function(request, response, next) {
+    var article=request.body;
+    if(article){
+        article_dao.showcollnum(article.article_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.length) {
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                } else {
+                    response.json({"statusCode":95 });
+
+                }
+            }
+        });
+    }
+});
+//====================================显示收藏数
 
 
 module.exports = router;

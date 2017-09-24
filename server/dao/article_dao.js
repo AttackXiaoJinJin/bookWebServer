@@ -136,6 +136,26 @@ exports.articleDao={
     },
     //=================================================搜索文章
 
+    showcollnum:function (article_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(articleSql.showcollnum,[article_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在显示收藏数");
+                    callback("e004");
+                    return;
+                }
+                console.log(JSON.stringify(result));
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //================================================显示收藏数
+
+
 };
 
 

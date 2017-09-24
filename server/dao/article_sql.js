@@ -13,6 +13,8 @@ exports.sql={
     deletecollect:"delete from collecttable where user_id=? and article_id=?",
     //搜索文章
     searchArticle:"call searchArticle(?,@result)",
+    //显示收藏数
+    showcollnum:"select count(1) coll_num,article_id from collecttable where article_id=? group by article_id"
     
 
 };
