@@ -97,12 +97,12 @@ exports.articleDao={
     },
     //========================================================取消收藏文章delete,可能需要再次确认
 
-    insertArticle:function (user_id,topic_id,article_content,article_title,callback) {
+    insertArticle:function (user_id,topic_id,article_content,article_title,article_img,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(articleSql.insertArticle,[user_id,topic_id,article_content,article_title],function (err,result) {
+            client.query(articleSql.insertArticle,[user_id,topic_id,article_content,article_title,article_img],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在插入文章");
                     callback("e004");

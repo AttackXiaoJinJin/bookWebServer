@@ -13,6 +13,7 @@ var topic= require('./routes/topic');
 var article= require('./routes/article');
 var beauty= require('./routes/beauty');
 var order= require('./routes/order');
+var receive= require('./routes/receive');
 
 
 
@@ -28,7 +29,12 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 //request上提交的数据都转化为Json
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//为上传图片================================
+// app.use(bodyParser.urlencoded({ extended: false }));
+//解析 application/x-www-form-urlencoded，limit:'20mb'用于设置请求的大小
+//解决nodejs Error: request entity too large问题
+app.use(bodyParser.urlencoded({ limit:'20mb',extended: true }));
+//===========================================
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,6 +44,9 @@ app.all("*",function (request,response,next) {
     response.header("Access-Control-Allow-Origin","*");
     response.header("Access-Control-Allow-Methods","PUT,GET,POST,DELETE,OPTIONS");
     response.header("Access-Control-Allow-Headers","Content-Type,Content-Length,Authorization,Accept,X-Requested-With,yourHeaderField,token");
+    //为上传图片新增
+    response.header("Content-Type", "application/json;charset=utf-8");
+    //===================
     // console.log("this is use");
     //浏览器为安全起见会提交两次
     if(request.method=="OPTIONS"){
@@ -57,6 +66,7 @@ app.use('/topic', topic);
 app.use('/article', article);
 app.use('/beauty', beauty);
 app.use('/order', order);
+app.use('/receive', receive);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

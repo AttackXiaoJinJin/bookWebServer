@@ -12,7 +12,7 @@ exports.sql={
     //添加用户头像
     addUserHead:"call addUserHead(?,?,@result)",
     //根据用户id获取头像、昵称、手机号
-    getBasicInfo:"select user_name,user_phone,user_head from usertable where user_id=?",
+    getBasicInfo:"select user_name,user_phone,user_head,user_introduction from usertable where user_id=?",
     //根据用户id获取头像、昵称、手机号、个人简介、收货地址
     getmoreBasicInfo:"select user_name,user_phone,user_head,user_introduction,user_address from usertable where user_id=?",
     //根据用户id获取其关注话题

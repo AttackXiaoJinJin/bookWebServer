@@ -12,8 +12,6 @@ var moment = require('moment');
 //checkToken
 var ct=require("../utils/checkToken");
 
-//设置一个常量来获取一个用户Id
-var YourUserId;
 
 router.post('/login',function(request, response, next) {
     var user=request.body;

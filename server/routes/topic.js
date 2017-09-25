@@ -152,6 +152,31 @@ router.post('/topnewart', function(request, response, next) {
 });
 //=====================================================通过话题分类获取最新发布文章
 
+router.post('/showallattent', function(request, response, next) {
+    var topic=request.body;
+    // console.log(book);
+    if(topic){
+        topic_dao.showallattent(topic.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.length == 0) {
+                    //说明没找到attent_id
+                    response.json({"statusCode":67});
+                } else {
+                    //获取成功
+                    // response.json({"statusCode":66});
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+    else {
+        response.json({"statusCode":68});
+        console.log("user_id,topic_id不存在！")
+    }
+});
+//====================================显示用户关注的所有话题
 
 router.post('/showattent', function(request, response, next) {
     var topic=request.body;
@@ -186,7 +211,7 @@ router.post('/showattent/insertattent', function(request, response, next) {
         topic_dao.insertattent(topic.user_id,topic.topic_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+                if (result.affectedRows==1) {
                     //说明插入成功
                     response.json({"statusCode":69});
                 } else {
@@ -208,10 +233,10 @@ router.post('/showattent/deleteattent', function(request, response, next) {
     var topic=request.body;
     // console.log(book);
     if(topic){
-        topic_dao.deleteattent(topic.attent_id,function (result) {
+        topic_dao.deleteattent(topic.user_id,topic.topic_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectedrows==1) {
+                if (result.affectedRows==1) {
                     //说明删除成功
                     response.json({"statusCode":71});
                 } else {

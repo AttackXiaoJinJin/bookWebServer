@@ -132,6 +132,23 @@ exports.topicDao={
     },
     //=========================================================按照话题来分类文章(最新发布排序)
 
+    showallattent:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(topicSql.showallattent,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在显示用户所有attent");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //========================================================显示该用户所有attent
 
     showattent:function (user_id,topic_id,callback) {
         pool.getConnection(function (err,client) {
@@ -169,12 +186,12 @@ exports.topicDao={
     },
     //========================================================关注话题insert,可能需要再次确认
 
-    deleteattent:function (attent_id,callback) {
+    deleteattent:function (user_id,topic_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(booksSql.deleteattent,[attent_id],function (err,result) {
+            client.query(topicSql.deleteattent,[user_id,topic_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在删除attent");
                     callback("e004");
