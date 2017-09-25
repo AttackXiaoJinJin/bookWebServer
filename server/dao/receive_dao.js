@@ -21,12 +21,12 @@ exports.receiveDao={
         })
     },
     //==========================================新增收货地址
-    insertreceive:function (user_id,receive_name,receive_local,receive_address,receive_phone,callback) {
+    insertreceive:function (user_id,receive_name,receive_address,receive_phone,callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 return
             }
-            client.query(receiveSql.insertreceive,[user_id,receive_name,receive_local,receive_address,receive_phone],function (error,result) {
+            client.query(receiveSql.insertreceive,[user_id,receive_name,receive_address,receive_phone],function (error,result) {
                 if(error){
                     console.log(error.message+"出错在插入收货地址");
                     callback('e004');
@@ -39,12 +39,12 @@ exports.receiveDao={
     },
 
     //修改收货地址=========================================
-    updatereceive:function (receive_name,receive_local,receive_address,receive_phone,receive_id,callback) {
+    updatereceive:function (receive_name,receive_address,receive_phone,receive_id,callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 return
             }
-            client.query(receiveSql.updatereceive,[receive_name,receive_local,receive_address,receive_phone,receive_id],function (error,result) {
+            client.query(receiveSql.updatereceive,[receive_name,receive_address,receive_phone,receive_id],function (error,result) {
                 if(error){
                     console.log(error.message+"出错在修改收货地址");
                     callback('e004');

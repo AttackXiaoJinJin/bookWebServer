@@ -32,7 +32,7 @@ router.post('/showreceive', function(request, response, next) {
 router.post('/insertreceive', function(request, response, next) {
     var receive=request.body;
     if(receive){
-    receive_dao.insertreceive(receive.user_id,receive.receive_name,receive.receive_local,receive.receive_address,receive.receive_phone,function (result) {
+    receive_dao.insertreceive(receive.user_id,receive.receive_name,receive.receive_address,receive.receive_phone,function (result) {
         if (result == "e004") {response.json({"statusCode": result});}
         else  {
             if (result.affectRows==0) {
@@ -53,7 +53,7 @@ router.post('/insertreceive', function(request, response, next) {
 router.post('/updatereceive', function(request, response, next) {
     var receive=request.body;
     if(receive){
-    receive_dao.updatereceive(receive.receive_name,receive.receive_local,receive.receive_address,receive.receive_phone,receive.id,function (result) {
+    receive_dao.updatereceive(receive.receive_name,receive.receive_address,receive.receive_phone,receive.id,function (result) {
         if (result == "e004") {response.json({"statusCode": result});}
         else  {
             if (result.affectedRows == 0) {

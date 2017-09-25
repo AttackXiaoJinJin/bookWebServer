@@ -337,6 +337,63 @@ router.post('/userarticle', function(request, response, next) {
 
 //====================================通过id获取用户收藏文章(收藏时间排序)
 
+//====================================通过id获取用户发表的文章(按时间排序)
+router.post('/showuserpub', function(request, response, next) {
+    var user=request.body;
+    var rr;
+    if(user){
+        user_dao.showUserPublish(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                rr=JSON.stringify(result);
+                console.log(rr);
+                //说明该用户ID数据库中没有
+                if(!result[0][0]){
+                    console.log(result[0][0]);
+                    response.json({"statusCode":105})
+                }else{
+                    //success
+                    response.json(result[0])
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+//====================================通过id获取用户发表的文章(按收藏排序)
+router.post('/showuserpubcoll', function(request, response, next) {
+    var user=request.body;
+    var rr;
+    if(user){
+        user_dao.showUserPubColl(user.user_id,function (result) {
+            //e004说明数据库异常
+            if(result=='e004'){
+                response.json({'statusCode':result});
+            }else{
+                rr=JSON.stringify(result);
+                console.log(rr);
+                //说明该用户ID数据库中没有
+                if(!result[0][0]){
+                    console.log(result[0][0]);
+                    response.json({"statusCode":106})
+                }else{
+                    //success
+                    response.json(result[0])
+                }
+            }
+        })
+    }else{
+        console.log("获取数据为空");
+    }
+});
+
+
+
+
 
 //========================获取所有用户
 /*

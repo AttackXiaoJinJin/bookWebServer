@@ -93,14 +93,14 @@ exports.userDao={
         });
     },
     */
-    addUserHead:function (phone,fileName,callback) {
-        console.log(phone+fileName+"daodao");
+    addUserHead:function (user_id,fileName,callback) {
+        // console.log(phone+fileName+"daodao");
         pool.getConnection(function (error,client) {
             if(error){
                 callback("e004");
                 return;
             }
-            client.query(userSql.addUserHead,[phone,fileName],function (err,result1) {
+            client.query(userSql.addUserHead,[user_id,fileName],function (err,result1) {
                 if(err){
                     console.log(err.message+"出错在添加用户头像");
                     callback("e004");
@@ -152,7 +152,7 @@ exports.userDao={
             })
         });
     },
-//===========================获取用户头像
+
 
     getBasicInfo:function (user_id,callback) {
         pool.getConnection(function (error,client) {
@@ -250,17 +250,16 @@ exports.userDao={
     },
 //===========================通过id获取用户收藏的文章
 
-
-/*
-    publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
+//===========================通过id获取用户自己发表的文章(按时间)
+    showUserPublish:function (user_id,callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 callback("e004");
                 return;
             }
-            client.query(userSql.publishArticle,[user_id,article_time,topic_id,article_content,article_title],function (err,result1) {
+            client.query(userSql.showUserPublish,[user_id],function (err,result1) {
                 if(err){
-                    console.log(err.message+"出错在发表文章");
+                    console.log(err.message+"出错在获取用户ID");
                     callback("e004");
                     return;
                 }
@@ -268,9 +267,49 @@ exports.userDao={
                 client.release();
             })
         });
-    }
-//=============================用户发表文章
-*/
+    },
+
+    //===========================通过id获取用户自己发表的文章（按收藏）
+    showUserPubColl:function (user_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                callback("e004");
+                return;
+            }
+            client.query(userSql.showUserPubColl,[user_id],function (err,result1) {
+                if(err){
+                    console.log(err.message+"出错在获取用户ID");
+                    callback("e004");
+                    return;
+                }
+                callback(result1);
+                client.release();
+            })
+        });
+    },
+
+
+
+    /*
+        publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
+            pool.getConnection(function (error,client) {
+                if(error){
+                    callback("e004");
+                    return;
+                }
+                client.query(userSql.publishArticle,[user_id,article_time,topic_id,article_content,article_title],function (err,result1) {
+                    if(err){
+                        console.log(err.message+"出错在发表文章");
+                        callback("e004");
+                        return;
+                    }
+                    callback(result1);
+                    client.release();
+                })
+            });
+        }
+    //=============================用户发表文章
+    */
 
 
 };
