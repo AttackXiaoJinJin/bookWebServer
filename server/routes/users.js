@@ -3,7 +3,7 @@ var router = express.Router();
 var user_dao=require("../dao/user_dao").userDao;
 var util=require("../utils/util");
 var formidable=require("formidable");
-var AVATARUPLOAD_FOLDER="/upload/";
+var AVATARUPLOAD_FOLDER="/userhead/";
 var fs=require("fs");
 
 //产生令牌
@@ -11,6 +11,15 @@ var jwt=require('jwt-simple');
 var moment = require('moment');
 //checkToken
 var ct=require("../utils/checkToken");
+
+var sm=require("../utils/utilmessage");
+
+
+router.post('/sendmessage',sm.sendmessage,function(request, response, next) {
+
+
+});
+
 
 
 router.post('/login',function(request, response, next) {
@@ -77,7 +86,10 @@ router.post('/upload', function(request, response, next) {
         //后缀名
         var extName='';
         //input name:uploadFile
-        console.log(files.uploadFile.type+"图片格式是");
+        // console.log(files);
+        // console.log(files.uploadFile);
+        // console.log(fields);
+        // console.log(files.uploadFile.type+"图片格式是");
         switch (files.uploadFile.type){
             case 'image/jpeg':extName='jpeg';break;
             case 'image/jpg':extName='jpg';break;
@@ -107,10 +119,11 @@ router.post('/upload', function(request, response, next) {
                     return;
                 }
                 // console.log(fields);
-                user_dao.addUserHead(fields.fromPhone,avatarName,function (result) {
+                user_dao.addUserHead(avatarName,fields.user_id,function (result) {
                     console.log(result+" this is users");
                     if(result==1){
                         //成功
+                        console.log("上传成功");
                         response.json({"statusCode":-1});
                     }else{
                         //失败
@@ -134,7 +147,6 @@ router.post('/getUserHead', function(request, response, next) {
         } else {
             response.json({"user_head":result[0].user_head});
         }
-
     });
     console.log(loginPhone);
 });

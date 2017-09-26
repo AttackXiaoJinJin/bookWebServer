@@ -1,8 +1,16 @@
 
 var pool=require("./db_pool").pool;
 var userSql=require("../dao/user_sql").sql;
+var SMS = require('aliyun-sms-node');
+var sms = new SMS({
+    AccessKeyId: 'LTAIitC8Df2W63Ed',
+    AccessKeySecret: '7oa54sL25VfMK6G0w5FDq3ad83TtFW'
+});
 
 exports.userDao={
+
+
+//=================================登录
     getPasswdByPhone:function (userPhone,callback) {
         pool.getConnection(function (error,client) {
             if(error){
@@ -93,14 +101,16 @@ exports.userDao={
         });
     },
     */
-    addUserHead:function (user_id,fileName,callback) {
+    addUserHead:function (fileName,user_id,callback) {
         // console.log(phone+fileName+"daodao");
+        console.log(fileName);
+        console.log(user_id);
         pool.getConnection(function (error,client) {
             if(error){
                 callback("e004");
                 return;
             }
-            client.query(userSql.addUserHead,[user_id,fileName],function (err,result1) {
+            client.query(userSql.addUserHead,[fileName,user_id],function (err,result1) {
                 if(err){
                     console.log(err.message+"出错在添加用户头像");
                     callback("e004");
@@ -115,13 +125,16 @@ exports.userDao={
         });
     },
 //===================添加用户头像
-    getUserHead:function (phone,callback) {
+
+
+
+    getUserHead:function (user_id,callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 callback("e004");
                 return;
             }
-            client.query(userSql.getUserHead,[phone],function (err,result1) {
+            client.query(userSql.getUserHead,[user_id],function (err,result1) {
                 if(err){
                     console.log(err.message+"出错在获取用户头像");
                     callback("e004");

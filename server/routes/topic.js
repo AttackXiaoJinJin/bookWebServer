@@ -260,7 +260,7 @@ router.post('/topicidbyname', function(request, response, next) {
         topic_dao.getTopicIdByname(topic.topic_name,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result[0].length == 0) {
+                if (result.length == 0) {
                     //说明没有该话题
                     response.json({"statusCode":68});
                 } else {

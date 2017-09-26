@@ -8,7 +8,7 @@ exports.sql={
     //创建令牌
     createToken:"update userTable set token=? where user_phone=?",
     //获取用户头像
-    getUserHead:"select user_head from userTable where user_phone=?",
+    getUserHead:"select user_head from usertable where user_id=?",
     //添加用户头像
     addUserHead:"call addUserHead(?,?,@result)",
     //根据用户id获取头像、昵称、手机号

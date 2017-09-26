@@ -14,6 +14,7 @@ var article= require('./routes/article');
 var beauty= require('./routes/beauty');
 var order= require('./routes/order');
 var receive= require('./routes/receive');
+// var message= require('./routes/message');
 
 
 
@@ -67,6 +68,7 @@ app.use('/article', article);
 app.use('/beauty', beauty);
 app.use('/order', order);
 app.use('/receive', receive);
+// app.use('/message', message);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
