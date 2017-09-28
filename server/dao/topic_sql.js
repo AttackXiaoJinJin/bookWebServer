@@ -11,7 +11,6 @@ exports.sql={
     getMostCollectArticleByTopic:"call getMostCollectArticleByTopic(?,@result)",
     //在某一话题中获取最新文章(按发布时间排序),参数是topic_id
     getNewestArticleByTopic:"call getNewestArticleByTopic(?,@result)",
-
     //显示用户已关注的所有topic_id
     showallattent:"select topic_id from attenttable where user_id=?",
     //(显示关注)利用user_id,topic_id遍历attent表,如果表中有attent_id，则表示该话题被该用户关注,否则没有

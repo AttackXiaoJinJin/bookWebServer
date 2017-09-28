@@ -1,10 +1,8 @@
 exports.sql={
     //获取所有图书全部信息
     getAllBooks:"  select book_id,book_name,book_subhead,book_price,book_content,book_tag,booktable.writer_id,writer_name,book_catalog,book_img,book_year from booktable LEFT JOIN writertable on writertable.writer_id=booktable.writer_id\n",
-    //获取推荐书籍
-    // getAlllove:""
     //获取推荐书籍(按评论数排序)
-    getMostComBooks:"select count(1) book_com,booktable.book_id,book_name,book_img,writer_name,book_year from booktable left join bookcomtable on booktable.book_id=bookcomtable.book_id left join writertable on booktable.writer_id=writertable.writer_id group by book_id ORDER BY count(1) desc",
+    getMostComBooks:"select book_com,booktable.book_id,book_name,book_img,writer_name,book_year from booktable left join (select count(1) book_com,book_id from bookcomtable)bkcom on booktable.book_id=bkcom.book_id left join writertable on booktable.writer_id=writertable.writer_id group by book_id ORDER BY count(1) desc",
     //获取书的详情
     getBookDetail:"select book_tag,book_name,book_subhead,book_price,book_content,writertable.writer_id,book_catalog,book_img,book_year,writer_name,writer_content from booktable left join writertable ON writertable.writer_id=booktable.writer_id where book_id=?",
     //按照书籍标签来分类书
