@@ -74,6 +74,25 @@ exports.receiveDao={
         })
     },
 
+    //通过receive_id获取收货地址=========================================
+    showaddress:function (receive_id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            client.query(receiveSql.showaddress,[receive_id],function (error,result) {
+                if(error){
+                    console.log(error.message+"出错在获取收货地址");
+                    callback('e004');
+                    return;
+                }
+                callback(result);
+                client.release();
+            })
+        })
+    },
+
+
 
 };
 

@@ -46,7 +46,7 @@ exports.userDao={
                 //console.log(resultC.length);
                 //如果数据库的结果为0,则注册
                 if (resultC.length == 0) {
-                    client.query(userSql.addUser, [userPhone, userName, "boy.jpg", userPasswd], function (err, result) {
+                    client.query(userSql.addUser, [userPhone, userName,userPasswd], function (err, result) {
                         // console.log(sql);
                         if (err) {
                             console.log(err.message);

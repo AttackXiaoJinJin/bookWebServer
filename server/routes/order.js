@@ -35,7 +35,7 @@ router.post('/showorder', function(request, response, next) {
 router.post('/addorder', function(request, response, next) {
     var order=request.body;
     if(order){
-        order_dao.insertOrder(order.user_id,order.book_id,order.order_num,order.order_bianhao,function (result) {
+        order_dao.insertOrder(order.user_id,order.book_id,order.order_num,order.order_bianhao,order.receive_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
                 if (result.affectedRows==1) {

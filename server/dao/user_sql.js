@@ -4,7 +4,7 @@ exports.sql={
     //登录,获取用户密码和ID
     getPasswdByPhone:"select user_passwd,user_id from userTable where user_phone=?",
     //注册,获取用户密码和id
-    addUser:"insert into userTable(user_phone,user_name,user_head,user_passwd) values(?,?,?,?)",
+    addUser:"insert into userTable(user_phone,user_name,user_passwd) values(?,?,?)",
     //创建令牌
     createToken:"update userTable set token=? where user_phone=?",
     //获取用户头像

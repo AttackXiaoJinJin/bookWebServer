@@ -137,9 +137,7 @@ router.post('/upload', function(request, response, next) {
 //=======================upload头像
 
 router.post('/getUserHead', function(request, response, next) {
-    // console.log("aaaaaaaaaaaaaaaaaaaa");
     var loginPhone=request.body.phone;
-    // console.log(loginPhone+" this is getUserHead");
     user_dao.getUserHead(loginPhone,function (result) {
         console.log(result[0].user_head+"这是图片路径");
         if(result.length==0){
@@ -157,7 +155,7 @@ router.post('/addUser', function(request, response, next) {
     var user=request.body;
     //如果从html传来的数据存在
     if(user){
-   user_dao.getPasswdByPhone(user.registPhone,function (result) {
+   user_dao.getPasswdByPhone(user.user_phone,function (result) {
        //e004说明数据库异常
        if(result=='e004'){
             response.json({'statusCode':result});
@@ -167,7 +165,8 @@ router.post('/addUser', function(request, response, next) {
                //添加用户
                // user_dao.addUser(user.registPhone,user.registName,user.registPasswd,function (result) {
                //MD5加密密码
-               user_dao.addUser(user.registPhone,user.registName,util.MD5(user.registPasswd),function (result) {
+               user_dao.addUser(user.user_phone,user.user_name,util.MD5(user.user_passwd),function (result) {
+               // user_dao.addUser(user.user_phone,user.user_name,user.user_passwd,function (result) {
                    if(result){
                        // user_dao.getPasswdByPhone(user.registPhone,function (resultC) {
                            // response.json({"statusCode":6},{"user_id":resultC[0].user_id});
@@ -200,7 +199,8 @@ router.post('/getIdByPhone', function(request, response, next) {
     var user=request.body;
     //如果从html传来的数据存在
     if(user){
-        user_dao.getUserIdByPhone(user.registPhone,function (result) {
+        // user_dao.getUserIdByPhone(user.registPhone,function (result) {
+        user_dao.getUserIdByPhone(user.user_phone,function (result) {
             //e004说明数据库异常
             if(result=='e004'){
                 response.json({'statusCode':result});

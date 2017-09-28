@@ -22,12 +22,12 @@ exports.orderDao={
     },
 
     //==========================================插入订单
-    insertOrder:function (user_id,book_id,order_num,order_bianhao,callback) {
+    insertOrder:function (user_id,book_id,order_num,order_bianhao,receive_id,callback) {
         pool.getConnection(function (error,client) {
             if(error){
                 return
             }
-            client.query(orderSql.insertOrder,[user_id,book_id,order_num,order_bianhao],function (error,result) {
+            client.query(orderSql.insertOrder,[user_id,book_id,order_num,order_bianhao,receive_id],function (error,result) {
                 if(error){
                     console.log(error.message+"出错在插入订单");
                     callback('e004');

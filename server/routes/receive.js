@@ -91,4 +91,25 @@ router.post('/deletereceive', function(request, response, next) {
     }
 });
 
+//=======================================通过receive_id获取收货地址
+router.post('/showaddress', function(request, response, next) {
+    var receive=request.body;
+    if(receive){
+    receive_dao.showaddress(receive.receive_id,function (result) {
+        if (result == "e004") {response.json({"statusCode": result});}
+        else  {
+            if (!result[0]) {
+                //说明没有收货地址
+                response.json({"statusCode":98});
+            } else {
+                //获取成功
+                response.json(result);
+                // response.json(result);
+                // console.log(JSON.stringify(result));
+            }
+        }
+    });
+    }
+});
+
 module.exports = router;

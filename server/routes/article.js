@@ -118,9 +118,9 @@ router.post('/insertarticle', function(request, response, next) {
                     response.json({"stateCode": 'e005'});
                     return;
                 }
-                console.log(article);
-                if (article) {
-                    article_dao.insertArticle(article.user_id, article.topic_id, article.article_content, article.article_title,avatarName, function (result) {
+                console.log(fields);
+                if (fields) {
+                    article_dao.insertArticle(avatarName,fields.user_id, fields.topic_id, fields.article_content, fields.article_title, function (result) {
                         // article_dao.insertArticle(user_id, topic_id, article_content, article_title, function (result) {
                         if (result == "e004") {
                             response.json({"statusCode": result});
