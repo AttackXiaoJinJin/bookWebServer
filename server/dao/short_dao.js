@@ -116,6 +116,24 @@ exports.shortDao={
         });
     },
 
+    //===============短评详情
+    shortDetail:function (short_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(shortSql.shortDetail,[short_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在短评详情");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
 };
 
 

@@ -143,5 +143,27 @@ router.post('/searchshort', function(request, response, next) {
     }
 });
 
+//==============================插入短评
+router.post('/shortdetail', function(request, response, next) {
+    var short=request.body;
+    // console.log(short);
+    if(short){
+        short_dao.shortDetail(short.short_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    response.json({"statusCode":117});
+                } else {
+                    //获取成功
+                    response.json(result[0][0]);
+                    // console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+});
+
+
+
 
 module.exports = router;

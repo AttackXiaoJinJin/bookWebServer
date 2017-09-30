@@ -11,5 +11,7 @@ exports.sql={
     dislikeShort:"update shorttable set dislike_num=dislike_num+1 where short_id=?",
     //搜索短评
     searchShort:"call searchShort(?,@result)",
+    //短评详情
+    shortDetail:"call shortdetail(?,@result)",
 
 };

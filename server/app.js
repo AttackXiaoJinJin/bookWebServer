@@ -15,6 +15,7 @@ var beauty= require('./routes/beauty');
 var order= require('./routes/order');
 var receive= require('./routes/receive');
 var short= require('./routes/short');
+var bkrecom= require('./routes/bkrecom');
 // var message= require('./routes/message');
 
 
@@ -70,6 +71,7 @@ app.use('/beauty', beauty);
 app.use('/order', order);
 app.use('/receive', receive);
 app.use('/short', short);
+app.use('/bkrecom', bkrecom);
 // app.use('/message', message);
 
 // catch 404 and forward to error handler
