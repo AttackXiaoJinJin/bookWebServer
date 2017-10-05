@@ -301,6 +301,41 @@ exports.userDao={
         });
     },
 
+    //======================================用户查看他人的回复
+    showuserBkRecom:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.showuserBkRecom,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看回复");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
+    //======================================用户中查看他人的回复
+    showuserArtRecom:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.showuserArtRecom,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看回复");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
 
 
     /*

@@ -26,7 +26,10 @@ exports.sql={
     //显示用户自己写的文章(按收藏数)
     showUserPubColl:"call showUserPubColl(?,@result)",
 
-
+    //查看他人对自己的评论
+    showuserBkRecom:"call showuserrecom(?,@result)",
+    //查看他人对自己的评论
+    showuserArtRecom:"call showuserartrecom(?,@result)",
 
 
 };

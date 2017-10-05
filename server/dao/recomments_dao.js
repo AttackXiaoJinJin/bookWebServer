@@ -22,15 +22,33 @@ exports.recommentsDao={
             });
         });
     },
-    //======================================查看他人对自己的回复
-    showBkRecom:function (user_id,callback) {
+    //======================================书中查看他人的回复
+    showBkRecom:function (bookcom_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(recommentsSql.showBkRecom,[user_id],function (err,result) {
+            client.query(recommentsSql.showBkRecom,[bookcom_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在查看回复");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
+    //======================================用户查看回复数
+    userbknum:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(recommentsSql.userbknum,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看回复数");
                     callback("e004");
                     return;
                 }
@@ -58,13 +76,13 @@ exports.recommentsDao={
             });
         });
     },
-    //======================================查看他人对自己的回复
-    showArtRecom:function (user_id,callback) {
+    //======================================文章中查看他人的回复
+    showArtRecom:function (articlecom_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(recommentsSql.showArtRecom,[user_id],function (err,result) {
+            client.query(recommentsSql.showArtRecom,[articlecom_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在查看回复");
                     callback("e004");

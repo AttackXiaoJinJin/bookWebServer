@@ -403,9 +403,41 @@ router.post('/showuserpubcoll', function(request, response, next) {
     }
 });
 
+//=============================用户查看回复
+router.post('/showuserrecom', function(request, response, next) {
+    var user=request.body;
+    // console.log(recom);
+    if(user){
+        user_dao.showuserBkRecom(user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    response.json({"statusCode":120});
+                } else {
+                    response.json(result[0]);
+                }
+            }
+        });
+    }
+});
 
-
-
+//=============================用户查看其他用户的回复
+router.post('/showuserartrecom', function(request, response, next) {
+    var user=request.body;
+    // console.log(recom);
+    if(user){
+        user_dao.showuserArtRecom(user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    response.json({"statusCode":120});
+                } else {
+                    response.json(result[0]);
+                }
+            }
+        });
+    }
+});
 
 //========================获取所有用户
 /*
