@@ -25,11 +25,26 @@ exports.sql={
     showUserPublish:"call showUserPublish(?,@result)",
     //显示用户自己写的文章(按收藏数)
     showUserPubColl:"call showUserPubColl(?,@result)",
-
+//=====================================
     //查看他人对自己的评论
     showuserBkRecom:"call showuserrecom(?,@result)",
     //查看他人对自己的评论
     showuserArtRecom:"call showuserartrecom(?,@result)",
-
+//=========================================
+    //查看自己的书评
+    showuserbookcom:"call showBookComById(?,@result)",
+    //查看自己的文评
+    showartcom:"",
+    //=====================
+    //查看@我的书的回复的评论
+    userbkcom:"call showBookComByReId(?,@result)",
+    //查看@我的文章的回复
+    userartcom:"call showArtComByReId(?,@result)",
+//===================================================
+    //点击后更新通知
+    updatebk:"update bkrecomtable LEFT JOIN bookcomtable on bkrecomtable.bookcom_id=bookcomtable.bookcom_id LEFT JOIN usertable on usertable.user_id=bookcomtable.user_id set neww=1 where bookcomtable.user_id=?",
+    updateart:"update artrecomtable LEFT JOIN articlecomtable on artrecomtable.articlecom_id=articlecomtable.articlecom_id LEFT JOIN usertable on usertable.user_id=articlecomtable.user_id set neww=1 where articlecomtable.user_id=?",
 
 };
+
+

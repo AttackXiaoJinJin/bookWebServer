@@ -337,28 +337,94 @@ exports.userDao={
         });
     },
 
-
-    /*
-        publishArticle:function (user_id,article_time,topic_id,article_content,article_title,callback) {
-            pool.getConnection(function (error,client) {
-                if(error){
+    //===================用户查看自己的评论
+    showuserbookcom:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.showuserbookcom,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看自己的评论");
                     callback("e004");
                     return;
                 }
-                client.query(userSql.publishArticle,[user_id,article_time,topic_id,article_content,article_title],function (err,result1) {
-                    if(err){
-                        console.log(err.message+"出错在发表文章");
-                        callback("e004");
-                        return;
-                    }
-                    callback(result1);
-                    client.release();
-                })
+                callback(result);
+                client.release();
             });
-        }
-    //=============================用户发表文章
-    */
+        });
+    },
 
+    //===================用户查看自己书籍的回复的评论
+    userbkcom:function (bookcom_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.userbkcom,[bookcom_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看自己的评论");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+    //===================用户查看自己文章的回复的评论
+    userartcom:function (articlecom_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.userartcom,[articlecom_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看自己的评论");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
+    //===================用户清除书的回复
+    updatebk:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.updatebk,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在清除书回复");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
+    //===================用户清除文章的回复
+    updateart:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.updateart,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在清除文章回复");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
 
 };
 

@@ -94,6 +94,23 @@ exports.recommentsDao={
         });
     },
 
+    //======================================用户查看回复数
+    userartnum:function (user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(recommentsSql.userartnum,[user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在查看回复数");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
 
 
 };

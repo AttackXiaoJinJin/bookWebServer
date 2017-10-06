@@ -100,5 +100,24 @@ router.post('/showartrecom', function(request, response, next) {
     }
 });
 
+//=============================用户查看文章下的回复数
+router.post('/userartnum', function(request, response, next) {
+    var recom=request.body;
+    console.log(recom);
+    if(recom){
+        recomments_dao.userartnum(recom.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0][0].newnum==0) {
+                    response.json({"statusCode":123});
+                } else {
+                    response.json(result[0][0]);
+                }
+            }
+        });
+    }
+});
+
+
 
 module.exports = router;

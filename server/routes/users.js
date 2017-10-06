@@ -439,6 +439,87 @@ router.post('/showuserartrecom', function(request, response, next) {
     }
 });
 
+//=============================用户查看自己的书籍评论
+router.post('/userbookcom', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.showuserbookcom(user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result[0].length==0) {
+                    response.json({"statusCode":125});
+                } else {
+                    response.json(result[0]);
+                }
+            }
+        });
+    }
+});
+
+//=============================用户查看自己的书籍回复的评论
+router.post('/userbkcom', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.userbkcom(user.bookcom_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                    response.json(result[0][0]);
+            }
+        });
+    }
+});
+
+//=============================用户查看自己的文章回复的评论
+router.post('/userartcom', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.userartcom(user.articlecom_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                    response.json(result[0][0]);
+            }
+        });
+    }
+});
+
+
+
+//=============================用户清除书籍回复
+router.post('/updatebk', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.updatebk(user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.affectedRows!=0) {
+                    response.json({"statusCode":126});
+                } else {
+                    response.json(result);
+                }
+            }
+        });
+    }
+});
+
+
+//=============================用户清除文章回复
+router.post('/updateart', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.updateart(user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.affectedRows!=0) {
+                    response.json({"statusCode":127});
+                } else {
+                    response.json(result);
+                }
+            }
+        });
+    }
+});
+
+
 //========================获取所有用户
 /*
 router.get('/getAllUsers',ct.checkToken,function (req,res,next) {
