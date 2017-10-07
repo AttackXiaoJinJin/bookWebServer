@@ -76,5 +76,26 @@ router.post('/deleteorder', function(request, response, next) {
     }
 });
 
+//==============================根据order_id获取订单
+router.post('/showorderbyid', function(request, response, next) {
+    var order=request.body;
+    if(order){
+        order_dao.showOrderById(order.order_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.length==0) {
+                    //说明没有该订单
+                    response.json({"statusCode":128});
+                } else {
+                    //获取成功
+                    response.json(result);
+                    console.log(JSON.stringify(result));
+                }
+            }
+        });
+    }
+});
+
+
 
 module.exports = router;

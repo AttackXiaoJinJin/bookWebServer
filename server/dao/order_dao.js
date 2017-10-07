@@ -57,7 +57,24 @@ exports.orderDao={
         })
     },
 
-
+    //=================================================根据order_id获取订单详情
+    showOrderById:function (order_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(orderSql.showOrderById,[order_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在获取订单");
+                    callback("e004");
+                    return;
+                }
+                console.log(JSON.stringify(result));
+                callback(result);
+                client.release();
+            });
+        });
+    },
 
 
 
