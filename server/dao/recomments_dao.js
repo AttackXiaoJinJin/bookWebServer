@@ -60,12 +60,12 @@ exports.recommentsDao={
 
     //=========================================文章
     //======================================插入对楼主回复
-    insertArtRecom:function (user_id,recom_content,artcom_id,callback) {
+    insertArtRecom:function (user_id,recom_content,articlecom_id,callback) {
         pool.getConnection(function (err,client) {
             if(err){
                 return;
             }
-            client.query(recommentsSql.insertArtRecom,[user_id,recom_content,artcom_id],function (err,result) {
+            client.query(recommentsSql.insertArtRecom,[user_id,recom_content,articlecom_id],function (err,result) {
                 if(err){
                     console.log(err.message+"出错在插入回复");
                     callback("e004");

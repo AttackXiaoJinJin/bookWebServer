@@ -38,7 +38,7 @@ exports.sql={
     //=====================
     //查看@我的书的回复的评论
     userbkcom:"call showBookComByReId(?,@result)",
-    //查看@我的文章的回复
+    //查看@我的文章的回复的评论
     userartcom:"call showArtComByReId(?,@result)",
 //===================================================
     //点击后更新通知
