@@ -519,6 +519,22 @@ router.post('/updateart', function(request, response, next) {
     }
 });
 
+//========================更新用户简介
+router.post('/updateintro', function(request, response, next) {
+    var user=request.body;
+    if(user){
+        user_dao.updateintro(user.user_introduction,user.user_id,function (result) {
+            if (result == "e004") {response.json({"statusCode": result});}
+            else  {
+                if (result.affectedRows==1) {
+                    response.json({"statusCode":129});
+                } else {
+                    response.json(result);
+                }
+            }
+        });
+    }
+});
 
 //========================获取所有用户
 /*

@@ -426,6 +426,24 @@ exports.userDao={
         });
     },
 
+    //===================用户更新简介
+    updateintro:function (user_introduction,user_id,callback) {
+        pool.getConnection(function (err,client) {
+            if(err){
+                return;
+            }
+            client.query(userSql.updateintro,[user_introduction,user_id],function (err,result) {
+                if(err){
+                    console.log(err.message+"出错在更新个人简介");
+                    callback("e004");
+                    return;
+                }
+                callback(result);
+                client.release();
+            });
+        });
+    },
+
 };
 
 

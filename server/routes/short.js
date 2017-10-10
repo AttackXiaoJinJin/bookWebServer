@@ -55,12 +55,12 @@ router.post('/insertshort', function(request, response, next) {
         short_dao.insertShort(short.short_content,short.short_title,short.user_id,short.book_id,function (result) {
             if (result == "e004") {response.json({"statusCode": result});}
             else  {
-                if (result.affectRows==1) {
+                if (result.affectedRows==1) {
                     response.json({"statusCode":109});
+                    console.log(JSON.stringify(result));
                 } else {
-                    //获取成功
                     response.json({"statusCode":110});
-                    // console.log(JSON.stringify(result));
+                    console.log(JSON.stringify(result));
                 }
             }
         });
@@ -143,7 +143,7 @@ router.post('/searchshort', function(request, response, next) {
     }
 });
 
-//==============================插入短评
+//==============================短评详情
 router.post('/shortdetail', function(request, response, next) {
     var short=request.body;
     // console.log(short);

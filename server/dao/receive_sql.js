@@ -8,7 +8,7 @@ exports.sql={
     //删除收货地址
     deletereceive:"delete from receivetable where receive_id=?",
     //通过receiv_id获取收货地址
-    showaddress:"select receive_address from receivetable where receive_id=?",
+    showaddress:"select receive_address,receive_phone,receive_name from receivetable where receive_id=?",
 
 
 

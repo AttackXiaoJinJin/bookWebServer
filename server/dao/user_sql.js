@@ -45,6 +45,8 @@ exports.sql={
     updatebk:"update bkrecomtable LEFT JOIN bookcomtable on bkrecomtable.bookcom_id=bookcomtable.bookcom_id LEFT JOIN usertable on usertable.user_id=bookcomtable.user_id set neww=1 where bookcomtable.user_id=?",
     updateart:"update artrecomtable LEFT JOIN articlecomtable on artrecomtable.articlecom_id=articlecomtable.articlecom_id LEFT JOIN usertable on usertable.user_id=articlecomtable.user_id set neww=1 where articlecomtable.user_id=?",
 
+    //更新用户简介
+    updateintro:"update usertable set user_introduction=? where user_id=?",
 };
 
 
