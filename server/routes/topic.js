@@ -304,5 +304,29 @@ router.post('/searchtopic', function(request, response, next) {
 //=====================================================搜索话题
 
 
+//一次加载2个话题
+router.post('/twotop', function(request, response, next) {
+  var topic=request.body;
+  if(topic){
+    topic_dao.twotop(topic.m,topic.n,function (result) {
+      if (result == "e004") {response.json({"statusCode": result});}
+      else  {
+        if (result[0].length==0) {
+          //说明没有话题
+          response.json({"statusCode":76});
+        } else {
+          //获取成功
+          response.json(result[0]);
+          console.log(JSON.stringify(result));
+        }
+      }
+    });
+  }
+  else {
+    response.json({"statusCode":68});
+    console.log("该topic_id不存在！")
+  }
+});
+
 
 module.exports = router;

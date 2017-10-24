@@ -241,7 +241,23 @@ exports.topicDao={
     },
     //========================================================搜索话题
 
-
+    //===========================加载两个话题
+    twotop:function (m,n,callback) {
+    pool.getConnection(function (err,client) {
+      if(err){
+        return;
+      }
+      client.query(topicSql.twotop,[m,n],function (err,result) {
+        if(err){
+          console.log(err.message+"出错在加载两个话题");
+          callback("e004");
+          return;
+        }
+        callback(result);
+        client.release();
+      });
+    });
+  },
 
 };
 

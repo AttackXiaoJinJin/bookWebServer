@@ -19,4 +19,7 @@ exports.sql={
     //搜索书籍
     searchBook:"call searchBook(?,@result)",
 
+    //加载3本书籍
+    threebooks:"call threebooks(?,?)",
+
 };

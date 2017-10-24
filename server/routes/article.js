@@ -244,5 +244,41 @@ router.post('/showcollnum', function(request, response, next) {
 //=========================================================================显示收藏数
 
 
+//============3篇热门文章
+router.post('/threecomart', function(request, response, next) {
+  var article=request.body;
+  if(article){
+    article_dao.threecomart(article.acm,article.acn,function (result) {
+      if (result == "e004") {response.json({"statusCode": result});}
+      else  {
+        if (result[0].length == 0) {
+          response.json({"statusCode":131});
+        } else {
+          //获取成功
+          response.json(result[0]);
+        }
+      }
+    });
+  }
+});
+
+//============3篇推荐文章
+router.post('/threecolart', function(request, response, next) {
+  var article=request.body;
+  if(article){
+    article_dao.threecolart(article.acolm,article.acoln,function (result) {
+      if (result == "e004") {response.json({"statusCode": result});}
+      else  {
+        if (result[0].length == 0) {
+          response.json({"statusCode":131});
+        } else {
+          //获取成功
+          response.json(result[0]);
+        }
+      }
+    });
+  }
+});
+
 
 module.exports = router;

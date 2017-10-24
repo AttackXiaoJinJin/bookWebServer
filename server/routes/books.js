@@ -222,5 +222,23 @@ router.post('/searchbook', function(request, response, next) {
 });
 //=================================================搜索书籍
 
+//===================================================三本书
+router.post('/threebooks', function(request, response, next) {
+  var book=request.body;
+  if(book){
+    book_dao.threebooks(book.bm,book.bn,function (result) {
+      if (result == "e004") {response.json({"statusCode": result});}
+      else  {
+        if (result.length == 0) {
+          //说明没有更多书了
+          response.json({"statusCode":130});
+        } else {
+          //获取成功
+          response.json(result[0]);
+        }
+      }
+    });
+  }
+});
 
 module.exports = router;

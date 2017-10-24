@@ -155,6 +155,40 @@ exports.articleDao={
     },
     //================================================显示收藏数
 
+    //三篇评论最多的文章
+    threecomart:function (acm,acn,callback) {
+    pool.getConnection(function (err,client) {
+      if(err){
+        return;
+      }
+      client.query(articleSql.threecomart,[acm,acn],function (err,result) {
+        if(err){
+          console.log(err.message+"出错在加载3篇热门文章");
+          callback("e004");
+          return;
+        }
+        callback(result);
+        client.release();
+      });
+    });
+  },
+  //三篇评论最多的文章
+    threecolart:function (acolm,acoln,callback) {
+    pool.getConnection(function (err,client) {
+      if(err){
+        return;
+      }
+      client.query(articleSql.threecolart,[acolm,acoln],function (err,result) {
+        if(err){
+          console.log(err.message+"出错在加载3篇推荐文章");
+          callback("e004");
+          return;
+        }
+        callback(result);
+        client.release();
+      });
+    });
+  },
 
 };
 

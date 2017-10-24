@@ -148,7 +148,23 @@ exports.booksDao={
     },
     //========================================================搜索书籍
 
-
+  //三本书
+  threebooks:function (bm,bn,callback) {
+    pool.getConnection(function (err,client) {
+      if(err){
+        return;
+      }
+      client.query(booksSql.threebooks,[bm,bn],function (err,result) {
+        if(err){
+          console.log(err.message+"出错在获取三本书");
+          callback("e004");
+          return;
+        }
+        callback(result);
+        client.release();
+      });
+    });
+  },
 };
 
 

@@ -19,5 +19,10 @@ exports.sql={
     // addArtImg:"update articletable set article_img=? where article_id=?",
 
 
+    //评论最多的三篇文章
+    threecomart:"call threecomart(?,?)",
+    //推荐三篇文章
+    threecolart:"call threecolart(?,?)",
+
 
 };
