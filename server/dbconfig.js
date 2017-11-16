@@ -13,13 +13,13 @@
 
 var options={
   // host:"localhost",
-  host:"rm-uf6uhx76ggo98k50wo.mysql.rds.aliyuncs.com",
+  host:"xxx",
   port:"3306",
   //数据库
   database:"friendbook",
   // database:"bookwebdb",
   user:"root",
-  password:'clhs@123456'
+  password:'xxx'
   // password:'123456'
 
 
