@@ -3,8 +3,8 @@ var pool=require("./db_pool").pool;
 var userSql=require("../dao/user_sql").sql;
 var SMS = require('aliyun-sms-node');
 var sms = new SMS({
-    AccessKeyId: 'LTAIitC8Df2W63Ed',
-    AccessKeySecret: '7oa54sL25VfMK6G0w5FDq3ad83TtFW'
+    AccessKeyId: '',
+    AccessKeySecret: ''
 });
 
 exports.userDao={
