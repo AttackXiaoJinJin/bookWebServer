@@ -1,7 +1,7 @@
 var SMS = require('aliyun-sms-node');
 var sms = new SMS({
-    AccessKeyId: 'LTAIitC8Df2W63Ed',
-    AccessKeySecret: '7oa54sL25VfMK6G0w5FDq3ad83TtFW'
+    AccessKeyId: '',
+    AccessKeySecret: ''
 });
 //随机产生六位数验证码
 var range=function(start,end)
